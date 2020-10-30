@@ -40,7 +40,7 @@ Pipeline is briefly described below:
 * Quality Control, using FastQC
 * Adaptor Removal, using AdapterRemoval
 * Duplicate and singleton removal, using bbmap and re-pair.sh
-* Filtering of phiX, human, and rainbow trout
+* Filtering of phiX, human, and rainbow trout, using BWA
 * Co-assembly to contigs of minimum 1000 bp, using MegaHIT
 * Quality control of contigs, using Quast
 
