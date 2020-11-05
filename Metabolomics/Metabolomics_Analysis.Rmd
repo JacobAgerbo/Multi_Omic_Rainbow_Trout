@@ -21,7 +21,6 @@ library(MetaboDiff)
 ```
 
 ```{r load data}
-#setwd("~/Dropbox/Arbejde/PhD/HappyFish/Metabolomics/LC-MS/Classical Workflow/1-Initial_Processing_Data/1-Buckettable/BORAL/")
 # Load data
 ft <- read.csv("MS1_curated.csv")
 rt_mz <- ft[,1:3]
@@ -307,7 +306,7 @@ p1 = EnhancedVolcano(df,
 p1
 
 save.image(file = "Metabolomics_Analysis.RData")
-#setwd("/Users/jacob/Dropbox/Arbejde/PhD/HappyFish/MultiOmic_Paper/Metabolomics/Figures/")
+
 #pdf("Differential Abundance of metabolites MetaboDiff template.pdf", height = 7.5, width = 15)
 #cowplot::plot_grid(p1, ncol = 1)
 #dev.off()
