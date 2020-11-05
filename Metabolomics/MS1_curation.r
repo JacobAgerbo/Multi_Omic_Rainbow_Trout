@@ -1,4 +1,4 @@
-df <- read.csv("MS1_table.csv")
+df <- read.csv("MS1_Samples.csv")
 rt <- df[,1:3]
 rownames(df) <- df$name
 df <- df[4:63]
