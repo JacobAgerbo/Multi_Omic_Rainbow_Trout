@@ -12,16 +12,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r load dependencies, include=FALSE}
-library(readxl)
 library(ggplot2)
-library(boral)
-library(ggboral)
 library(readxl)
 library(phyloseq)
 library(ape)
-library(plyr)
 library(dplyr)
-#library(WGCNA)
 library(MetaboDiff)
 ```
 
