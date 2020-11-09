@@ -1,7 +1,9 @@
-#Analysis of untargeted metabolomics from intestinal environment of rainbow trout (_Oncorhynchus mykiss_)
+# Analysis of untargeted metabolomics from intestinal environment of rainbow trout (_Oncorhynchus mykiss_)
+
 Jacob Agerbo Rasmussen
+
 date: "10/22/2020"
-output:
+
 __________________________________________________________________________________________________________
 
 ## load dependencies
