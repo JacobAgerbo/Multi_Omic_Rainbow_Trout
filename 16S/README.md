@@ -72,4 +72,4 @@ p_sample = plot_bar(physeq_samples, "Sample_ID", fill = "Family", facet_grid = ~
 plot_grid(p_sample, labels = 'AUTO', nrow = 1)
 
 ```
-![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/16S/data/bin/16S_Barplot.pdf)
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/16S/data/bin/16S_barplot.png)
