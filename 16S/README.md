@@ -73,3 +73,68 @@ plot_grid(p_sample, labels = 'AUTO', nrow = 1)
 
 ```
 ![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/16S/data/bin/16S_barplot.png)
+
+## Bacterial composition analysis, using PCoA with unifrac distances
+
+We check the variance between sample types, using PCoA and Unifrac distances. 
+Unifrac distances were chosen to include the phylogenetic distance. Several other measurements were also tested, included Bray-Curtis and Jaccard. 
+Here we see a clear pattern, that CTRL are clustering alone, away from both SYN and PRO feed additives (Fig. A). Furthermore, we see that sample types don't seem to affect composition of bacteria.
+
+```{r Ordination,message=FALSE}
+GP.ord <- ordinate(physeq_samples, "PCoA", "unifrac", weighted=TRUE)
+p1 = plot_ordination(physeq_samples, GP.ord, type="samples",
+                     color="Feed_Type",
+                     shape = "Gut_Section",
+                     title="Microbiome Composition of Rainbow Trout Reared on Different Feeding Types")
+p1 = p1 + facet_wrap(~Feed_Type, 1) + theme_bw()
+
+physeq_ord <- subset_samples(physeq.sort, Sample_Type !="Blank")
+
+sample_types.ord <- ordinate(physeq_ord, "PCoA", "unifrac", weighted=TRUE)
+p2 = plot_ordination(physeq_ord, sample_types.ord, type="samples",
+                     color="Feed_Type",
+                     shape = "Sample_Type",
+                     title="Microbiome Composition of Rainbow Trout Reared on Different Sample Types")
+
+plot_grid(p1,p2, labels = 'AUTO', nrow = 2)
+```
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/16S/data/bin/16S_PCoA.png)
+
+## Differential abundance of bacteria
+
+We do a differential abundance test between feeding types and include their taxonomic relation. We use metacoder to get a higher resolution of taxonomy, sinec the phylogenetic tree is more informative than actual barplots.
+
+```{r Create metacoder dataseets, include=FALSE}
+### Create meacoder environment
+TopNOTUs = names(sort(taxa_sums(physeq.norm), TRUE)[1:50])
+physeq_100 = prune_taxa(TopNOTUs, physeq.norm)
+#substract only samples
+metacoder <- subset_samples(physeq_100, Gut_Section=="Distal Gut content")
+metacoder <- parse_phyloseq(metacoder)
+metacoder$data$tax_abund <- calc_taxon_abund(metacoder, data = "otu_table")
+metacoder$data$tax_occ <- calc_n_samples(metacoder, "tax_abund", groups = "Feed_Type")
+metacoder$data$diff_table <- compare_groups(metacoder, data = "tax_abund", cols = metacoder$data$sample_data$sample_id,
+                                      groups = metacoder$data$sample_data$Feed_Type)
+metacoder$data$diff_table$adjusted_p_value <- p.adjust(metacoder$data$diff_table$wilcox_p_value,
+                                                 method = "fdr")
+```
+```{r Plot Heat Trees}
+metacoder.plot <- heat_tree_matrix(metacoder,
+                 data = "diff_table",
+                 node_size = n_obs,
+                 node_label = taxon_names,
+                 node_color = log2_median_ratio,
+                 node_color_range = diverging_palette(),
+                 node_color_trans = "linear",
+                 node_color_interval = c(-5, 5),
+                 edge_color_interval = c(-5, 5),
+                 key_size = 0.75,
+                 overlap_avoidance = 5,
+                 layout = "fruchterman-reingold", # The primary layout algorithm
+                 initial_layout = "reingold-tilford", # The layout algorithm that initializes node locations
+                 node_size_axis_label = "Number of ASVs",
+                 node_color_axis_label = "Log2 ratio median proportions") 
+metacoder.plot
+```
+
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/16S/data/bin/16S_Metacoder.png)
