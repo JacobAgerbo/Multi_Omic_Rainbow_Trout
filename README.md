@@ -1,4 +1,4 @@
-# Intestinal multi omics unravels a differentiated metabolic landscape and loss of important gut bacteria Mycoplasma salmoninae in rainbow trout (Oncorhynchus mykiss)  using non marine pre- and probiotics 
+# Intestinal multi omics unravels a differentiated metabolic landscape and loss of important gut bacteria Mycoplasma salmoninae in rainbow trout (_Oncorhynchus mykiss_)  using non marine pre- and probiotics 
 
 _Please find more information of study Rasmussen et al. 2021_
 
