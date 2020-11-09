@@ -280,7 +280,7 @@ colnames(stat_list_kw) <- names
 #Remove hashtag below to write out output
 #write.csv(stat_list_kw, "Wilcoxon_Summary.csv")
 ```
-
+## Metabodiff Analysis
 Use Metabodiff to apply normalisation and knn imputation. Further also apply differential test between usage of feed additives and feeding groups. 
 ```{r - Metabodiff normalisation}
 met <- create_mae(ft,tax,md)
@@ -328,6 +328,8 @@ p1
 #write.csv(df,file = "Diff_test_Metabodiff.csv")
 #write.csv(df_sig,file = "Sig_Diff_test_Metabodiff.csv")
 ```
+
+![alt_text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/MetaboDiff_Volcanoplot.png)
 
 ```{r Create scatterplots with correlations within each group}
 ft_selected <- ft[match(df_sig$Metabolites,rownames(ft)),]
@@ -389,7 +391,9 @@ p = plot_grid(xplot, NULL, sp, yplot, ncol = 2, align = "hv",
 plot_list_myco[[i]] = p
 }
 ```
-plot
+![alt_text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/Cor_Metabolites_Weight.png)
+![alt_text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/Cor_Metabolites_and_Myco.png)
+
 ```{r - plot scatter plots}
 # Remove hashtag below to write out output
 #pdf("Sig_Metabolites_and_weight.pdf")
