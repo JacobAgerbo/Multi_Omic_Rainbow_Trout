@@ -7,16 +7,16 @@ __Contact:__ <genomicsisawesome@gmail.com>
 __Date:__ 09.nov.2020
 
 ## Data availability
-*Data for redoing analysis is available in underlying repository. 
 
-*Raw 16S .fq data is available at ENA project repository: XXXXX, when article is accepted.
+* Data for redoing analysis is available in underlying repository. 
 
-*Bioinformatic pipeline can be found at https://github.com/JacobAgerbo/Data2Result/tree/master/Metabarcoding
+* Raw 16S .fq data is available at ENA project repository: XXXXX, when article is accepted.
+
+* Bioinformatic pipeline can be found at https://github.com/JacobAgerbo/Data2Result/tree/master/Metabarcoding
 
 
 
 ## Setup dependencies
-
 ```r
 library(phyloseq); packageVersion("phyloseq")
 library(Biostrings); packageVersion("Biostrings")
@@ -36,6 +36,7 @@ library(lme4);packageVersion("lme4")
 library(RColorBrewer);packageVersion("RColorBrewer")
 ```
 I use Phyloseq to organise our data for profiling the V3-V4 region of 16S rRNA gene, thank you Joey711!
+
 ```r
 #  Import and arrange data for ASVs
 
