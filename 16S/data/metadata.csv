@@ -1,0 +1,265 @@
+Sample_ID;Tank;Fish_Individual;Gut_Section;Sample_Type;Feed_Type;Additives;Timepoint;Well;Metagenome;Metabolome;Plate;Keep;Weight;Fulton_K
+BT01_F01_S3_W17;T01;F01;Distal Gut content;Sample;Probiotics;Yes;W17;A8;No;Yes;Plate2;Yes;64.29;0.0207
+BT01_F02_S3_W17;T01;F02;Distal Gut content;Sample;Probiotics;Yes;W17;A10;No;No;Plate6;Yes;85.04;0.0224
+BT01_F03_S3_W17;T01;F03;Distal Gut content;Sample;Probiotics;Yes;W17;F6;No;No;Plate3;Yes;36.97;0.027
+BT01_F04_S3_W17;T01;F04;Distal Gut content;Sample;Probiotics;Yes;W17;E9;No;No;Plate1;Yes;69.89;0.0199
+BT01_F05_S3_W17;T01;F05;Distal Gut content;Sample;Probiotics;Yes;W17;C1;No;No;Plate1;Yes;61.34;0.0185
+BT01_F06_S3_W17;T01;F06;Distal Gut content;Sample;Probiotics;Yes;W17;D5;No;No;Plate5;Yes;44.09;0.0187
+BT01_F08_S3_W17;T01;F08;Distal Gut content;Sample;Probiotics;Yes;W17;E11;No;Yes;Plate2;Yes;91.6;0.0212
+BT01_F09_S3_W17;T01;F09;Distal Gut content;Sample;Probiotics;Yes;W17;B2;No;No;Plate1;Yes;59.27;0.0211
+BT01_F10_S3_W17;T01;F10;Distal Gut content;Sample;Probiotics;Yes;W17;A8;No;No;Plate5;Yes;60.93;0.0192
+BT01_F11_S3_W17;T01;F11;Distal Gut content;Sample;Probiotics;Yes;W17;B9;No;No;Plate4;Yes;61.68;0.019
+BT01_F12_S3_W17;T01;F12;Distal Gut content;Sample;Probiotics;Yes;W17;C11;No;No;Plate5;Yes;63.68;0.0237
+BT01_F13_S3_W17;T01;F13;Distal Gut content;Sample;Probiotics;Yes;W17;E9;No;No;Plate4;Yes;62.67;0.0178
+BT01_F14_S3_W17;T01;F14;Distal Gut content;Sample;Probiotics;Yes;W17;D8;No;No;Plate2;Yes;60.81;0.0236
+BT01_F16_S3_W17;T01;F16;Distal Gut content;Sample;Probiotics;Yes;W17;F5;No;No;Plate5;Yes;62.28;0.0213
+BT01_F17_S3_W17;T01;F17;Distal Gut content;Sample;Probiotics;Yes;W17;C7;No;Yes;Plate5;Yes;49.09;0.02
+BT01_F18_S3_W17;T01;F18;Distal Gut content;Sample;Probiotics;Yes;W17;A7;No;No;Plate3;Yes;73.12;0.0212
+BT01_F19_S3_W17;T01;F19;Distal Gut content;Sample;Probiotics;Yes;W17;D5;No;Yes;Plate2;Yes;90.35;0.0262
+BT01_F20_S3_W17;T01;F20;Distal Gut content;Sample;Probiotics;Yes;W17;A8;Yes;Yes;Plate6;Yes;32.39;0.0174
+BT01_F21_S3_W17;T01;F21;Distal Gut content;Sample;Probiotics;Yes;W17;E8;No;No;Plate2;Yes;64.29;0.022
+BT01_F22_S3_W17;T01;F22;Distal Gut content;Sample;Probiotics;Yes;W17;E1;No;No;Plate6;Yes;71.81;0.0226
+BT01_F24_S3_W17;T01;F24;Distal Gut content;Sample;Probiotics;Yes;W17;E1;No;No;Plate2;Yes;66.94;0.0202
+BT01_F25_S3_W17;T01;F25;Distal Gut content;Sample;Probiotics;Yes;W17;D6;No;No;Plate1;Yes;66.03;0.0208
+BT01_F26_S3_W17;T01;F26;Distal Gut content;Sample;Probiotics;Yes;W17;C2;No;No;Plate2;Yes;66.33;0.0213
+BT01_F27_S3_W17;T01;F27;Distal Gut content;Sample;Probiotics;Yes;W17;C8;No;No;Plate3;Yes;58.57;0.0209
+BT01_F28_S3_W17;T01;F28;Distal Gut content;Sample;Probiotics;Yes;W17;B5;No;Yes;Plate1;Yes;35.87;0.0184
+BT01_F29_S3_W17;T01;F29;Distal Gut content;Sample;Probiotics;Yes;W17;A1;No;No;Plate6;Yes;35.25;0.0185
+BT01_F30_S3_W17;T01;F30;Distal Gut content;Sample;Probiotics;Yes;W17;F2;No;No;Plate6;Yes;48.71;0.0185
+BT01_F32_S3_W17;T01;F32;Distal Gut content;Sample;Probiotics;Yes;W17;H7;No;No;Plate2;Yes;67.47;0.0196
+BT01_F33_S3_W17;T01;F33;Distal Gut content;Sample;Probiotics;Yes;W17;H4;No;No;Plate3;Yes;57.36;0.0196
+BT01_F34_S3_W17;T01;F34;Distal Gut content;Sample;Probiotics;Yes;W17;D10;No;No;Plate1;Yes;59.59;0.0195
+BT01_F35_S3_W17;T01;F35;Distal Gut content;Sample;Probiotics;Yes;W17;G1;No;Yes;Plate6;Yes;40.45;0.0172
+BT01_F36_S3_W17;T01;F36;Distal Gut content;Sample;Probiotics;Yes;W17;H2;No;No;Plate4;Yes;48.75;0.019
+BT01_F37_S3_W17;T01;F37;Distal Gut content;Sample;Probiotics;Yes;W17;D9;No;No;Plate5;Yes;38.67;0.0189
+BT01_F38_S3_W17;T01;F38;Distal Gut content;Sample;Probiotics;Yes;W17;G6;No;No;Plate3;Yes;59.03;0.0194
+BT01_F40_S3_W17;T01;F40;Distal Gut content;Sample;Probiotics;Yes;W17;H12;No;No;Plate1;Yes;40.68;0.019
+ET01_F01_S3_W17;T01;F01;Distal Gut content;Sample;Control;No;W17;A7;Yes;Yes;Plate6;Yes;38;0.0177
+ET01_F02_S3_W17;T01;F02;Distal Gut content;Sample;Control;No;W17;A10;No;No;Plate5;Yes;56.47;0.0193
+ET01_F03_S3_W17;T01;F03;Distal Gut content;Sample;Control;No;W17;G10;No;No;Plate2;Yes;67.69;0.0201
+ET01_F04_S3_W17;T01;F04;Distal Gut content;Sample;Control;No;W17;C10;No;Yes;Plate4;Yes;49.01;0.0191
+ET01_F05_S3_W17;T01;F05;Distal Gut content;Sample;Control;No;W17;B10;No;Yes;Plate4;Yes;77.4;0.0193
+ET01_F06_S3_W17;T01;F06;Distal Gut content;Sample;Control;No;W17;D10;No;No;Plate2;Yes;58.7;0.0201
+ET01_F07_S3_W17;T01;F07;Distal Gut content;Sample;Control;No;W17;D7;No;No;Plate4;Yes;70.81;0.0202
+ET01_F08_S3_W17;T01;F08;Distal Gut content;Sample;Control;No;W17;F11;No;No;Plate4;Yes;53.39;0.019
+ET01_F09_S3_W17;T01;F09;Distal Gut content;Sample;Control;No;W17;G2;No;No;Plate2;Yes;60.62;0.0183
+ET01_F10_S3_W17;T01;F10;Distal Gut content;Sample;Control;No;W17;F8;No;No;Plate3;Yes;38.93;0.0209
+ET01_F11_S3_W17;T01;F11;Distal Gut content;Sample;Control;No;W17;G8;No;Yes;Plate6;Yes;55.06;0.0184
+ET01_F12_S3_W17;T01;F12;Distal Gut content;Sample;Control;No;W17;F8;No;No;Plate1;Yes;46.52;0.0222
+ET01_F13_S3_W17;T01;F13;Distal Gut content;Sample;Control;No;W17;E3;No;No;Plate5;Yes;80.37;0.0196
+ET01_F14_S3_W17;T01;F14;Distal Gut content;Sample;Control;No;W17;C11;No;No;Plate2;Yes;67.27;0.0212
+ET01_F15_S3_W17;T01;F15;Distal Gut content;Sample;Control;No;W17;C7;Yes;Yes;Plate6;Yes;90.53;0.0209
+ET01_F16_S3_W17;T01;F16;Distal Gut content;Sample;Control;No;W17;A2;No;No;Plate1;Yes;46.18;0.0188
+ET01_F17_S3_W17;T01;F17;Distal Gut content;Sample;Control;No;W17;G8;No;Yes;Plate5;Yes;82.17;0.0253
+ET01_F18_S3_W17;T01;F18;Distal Gut content;Sample;Control;No;W17;B4;No;No;Plate3;Yes;70.66;0.0193
+ET01_F19_S3_W17;T01;F19;Distal Gut content;Sample;Control;No;W17;E6;No;No;Plate3;Yes;69.6;0.0224
+ET01_F20_S3_W17;T01;F20;Distal Gut content;Sample;Control;No;W17;E6;No;No;Plate2;Yes;56.16;0.0196
+ET01_F21_S3_W17;T01;F21;Distal Gut content;Sample;Control;No;W17;B5;No;No;Plate3;Yes;62.55;0.0344
+ET01_F22_S3_W17;T01;F22;Distal Gut content;Sample;Control;No;W17;E2;No;No;Plate5;Yes;46.46;0.0189
+ET01_F23_S3_W17;T01;F23;Distal Gut content;Sample;Control;No;W17;A9;No;Yes;Plate6;Yes;108.97;0.021
+ET01_F24_S3_W17;T01;F24;Distal Gut content;Sample;Control;No;W17;B5;No;No;Plate5;Yes;64.66;0.0199
+ET01_F25_S3_W17;T01;F25;Distal Gut content;Sample;Control;No;W17;H9;No;No;Plate3;Yes;54.96;0.0188
+ET01_F26_S3_W17;T01;F26;Distal Gut content;Sample;Control;No;W17;C1;No;Yes;Plate3;Yes;81.81;0.0242
+ET01_F27_S3_W17;T01;F27;Distal Gut content;Sample;Control;No;W17;G2;No;No;Plate5;Yes;59.02;0.0215
+ET01_F28_S3_W17;T01;F28;Distal Gut content;Sample;Control;No;W17;A4;No;No;Plate4;Yes;60.48;0.0187
+ET01_F29_S3_W17;T01;F29;Distal Gut content;Sample;Control;No;W17;F9;No;No;Plate1;Yes;60.69;0.0199
+ET01_F30_S3_W17;T01;F30;Distal Gut content;Sample;Control;No;W17;C3;No;No;Plate6;Yes;59.18;0.0186
+ET01_F31_S3_W17;T01;F31;Distal Gut content;Sample;Control;No;W17;E11;No;No;Plate4;Yes;73.15;0.0267
+ET01_F32_S3_W17;T01;F32;Distal Gut content;Sample;Control;No;W17;D6;No;No;Plate2;Yes;55.38;0.0185
+ET01_F33_S3_W17;T01;F33;Distal Gut content;Sample;Control;No;W17;B12;No;Yes;Plate4;Yes;43.41;0.0193
+ET01_F34_S3_W17;T01;F34;Distal Gut content;Sample;Control;No;W17;G3;No;No;Plate4;Yes;55.34;0.0193
+ET01_F35_S3_W17;T01;F35;Distal Gut content;Sample;Control;No;W17;H8;No;No;Plate3;Yes;60.81;0.0199
+ET01_F36_S3_W17;T01;F36;Distal Gut content;Sample;Control;No;W17;D2;No;No;Plate1;Yes;72.25;0.0198
+ET01_F38_S3_W17;T01;F38;Distal Gut content;Sample;Control;No;W17;C1;No;Yes;Plate6;Yes;82.29;0.0213
+ET01_F39_S3_W17;T01;F39;Distal Gut content;Sample;Control;No;W17;D3;No;No;Plate3;Yes;62.6;0.021
+ET01_F40_S3_W17;T01;F40;Distal Gut content;Sample;Control;No;W17;H4;No;No;Plate4;Yes;72.42;0.0191
+ZT01_F01_S3_W17;T01;F01;Distal Gut content;Sample;Synbiotics;Yes;W17;A5;No;Yes;Plate1;Yes;54.24;0.0198
+ZT01_F03_S3_W17;T01;F03;Distal Gut content;Sample;Synbiotics;Yes;W17;G8;No;No;Plate1;Yes;56.84;0.0194
+ZT01_F04_S3_W17;T01;F04;Distal Gut content;Sample;Synbiotics;Yes;W17;F1;No;No;Plate1;Yes;50.24;0.0195
+ZT01_F05_S3_W17;T01;F05;Distal Gut content;Sample;Synbiotics;Yes;W17;H7;No;No;Plate1;Yes;58.54;0.0209
+ZT01_F06_S3_W17;T01;F06;Distal Gut content;Sample;Synbiotics;Yes;W17;A2;No;No;Plate3;Yes;47.15;0.0179
+ZT01_F07_S3_W17;T01;F07;Distal Gut content;Sample;Synbiotics;Yes;W17;D8;No;No;Plate3;Yes;52.64;0.0188
+ZT01_F08_S3_W17;T01;F08;Distal Gut content;Sample;Synbiotics;Yes;W17;A10;No;No;Plate4;Yes;53.49;0.0195
+ZT01_F09_S3_W17;T01;F09;Distal Gut content;Sample;Synbiotics;Yes;W17;E5;No;Yes;Plate3;Yes;63.75;0.0205
+ZT01_F11_S3_W17;T01;F11;Distal Gut content;Sample;Synbiotics;Yes;W17;F4;No;No;Plate3;Yes;63.56;0.0204
+ZT01_F12_S3_W17;T01;F12;Distal Gut content;Sample;Synbiotics;Yes;W17;G7;Yes;Yes;Plate6;Yes;84.92;0.0252
+ZT01_F13_S3_W17;T01;F13;Distal Gut content;Sample;Synbiotics;Yes;W17;B8;No;No;Plate4;Yes;43.56;0.031
+ZT01_F14_S3_W17;T01;F14;Distal Gut content;Sample;Synbiotics;Yes;W17;A2;No;No;Plate4;Yes;48.83;0.0198
+ZT01_F15_S3_W17;T01;F15;Distal Gut content;Sample;Synbiotics;Yes;W17;A3;No;No;Plate4;Yes;57.93;0.0198
+ZT01_F16_S3_W17;T01;F16;Distal Gut content;Sample;Synbiotics;Yes;W17;G9;No;No;Plate1;Yes;51.29;0.0183
+ZT01_F17_S3_W17;T01;F17;Distal Gut content;Sample;Synbiotics;Yes;W17;H11;No;Yes;Plate3;Yes;64.76;0.0226
+ZT01_F19_S3_W17;T01;F19;Distal Gut content;Sample;Synbiotics;Yes;W17;G11;No;No;Plate4;Yes;61.71;0.0211
+ZT01_F20_S3_W17;T01;F20;Distal Gut content;Sample;Synbiotics;Yes;W17;G10;No;No;Plate3;Yes;42.13;0.0187
+ZT01_F21_S3_W17;T01;F21;Distal Gut content;Sample;Synbiotics;Yes;W17;H11;No;No;Plate5;Yes;61.41;0.0214
+ZT01_F22_S3_W17;T01;F22;Distal Gut content;Sample;Synbiotics;Yes;W17;G1;No;No;Plate5;Yes;72.47;0.0228
+ZT01_F23_S3_W17;T01;F23;Distal Gut content;Sample;Synbiotics;Yes;W17;A7;No;No;Plate2;Yes;61.88;0.0199
+ZT01_F24_S3_W17;T01;F24;Distal Gut content;Sample;Synbiotics;Yes;W17;G9;No;No;Plate3;Yes;50.74;0.0181
+ZT01_F25_S3_W17;T01;F25;Distal Gut content;Sample;Synbiotics;Yes;W17;B5;No;No;Plate4;Yes;53.03;0.0216
+ZT01_F27_S3_W17;T01;F27;Distal Gut content;Sample;Synbiotics;Yes;W17;C8;No;No;Plate1;Yes;67.67;0.0185
+ZT01_F28_S3_W17;T01;F28;Distal Gut content;Sample;Synbiotics;Yes;W17;G9;No;No;Plate4;Yes;70.47;0.0231
+ZT01_F29_S3_W17;T01;F29;Distal Gut content;Sample;Synbiotics;Yes;W17;A6;No;No;Plate3;Yes;63.07;0.0199
+ZT01_F30_S3_W17;T01;F30;Distal Gut content;Sample;Synbiotics;Yes;W17;H11;No;No;Plate4;Yes;56.13;0.0239
+ZT01_F31_S3_W17;T01;F31;Distal Gut content;Sample;Synbiotics;Yes;W17;B8;No;Yes;Plate1;Yes;50.99;0.0178
+ZT01_F32_S3_W17;T01;F32;Distal Gut content;Sample;Synbiotics;Yes;W17;E9;No;No;Plate3;Yes;54.85;0.018
+ZT01_F33_S3_W17;T01;F33;Distal Gut content;Sample;Synbiotics;Yes;W17;C9;No;Yes;Plate6;Yes;49.3;0.018
+ZT01_F35_S3_W17;T01;F35;Distal Gut content;Sample;Synbiotics;Yes;W17;G3;No;Yes;Plate2;Yes;65.34;0.0179
+ZT01_F36_S3_W17;T01;F36;Distal Gut content;Sample;Synbiotics;Yes;W17;A11;No;No;Plate4;Yes;49.4;0.0188
+ZT01_F37_S3_W17;T01;F37;Distal Gut content;Sample;Synbiotics;Yes;W17;E9;Yes;Yes;Plate6;Yes;80.13;0.0188
+ZT01_F38_S3_W17;T01;F38;Distal Gut content;Sample;Synbiotics;Yes;W17;B1;No;No;Plate5;Yes;81.34;0.0214
+ZT01_F39_S3_W17;T01;F39;Distal Gut content;Sample;Synbiotics;Yes;W17;A12;No;No;Plate1;Yes;79.31;0.0217
+ZT01_F40_S3_W17;T01;F40;Distal Gut content;Sample;Synbiotics;Yes;W17;E3;No;No;Plate4;Yes;45.05;0.0179
+BT01_F01_S4_W17;T01;F01;Mid Gut content;Sample;Probiotics;Yes;W17;C9;No;No;Plate4;Yes;64.29;0.0207
+BT01_F02_S4_W17;T01;F02;Mid Gut content;Sample;Probiotics;Yes;W17;B10;No;No;Plate6;Yes;85.04;0.0224
+BT01_F03_S4_W17;T01;F03;Mid Gut content;Sample;Probiotics;Yes;W17;B9;No;No;Plate5;Yes;36.97;0.027
+BT01_F04_S4_W17;T01;F04;Mid Gut content;Sample;Probiotics;Yes;W17;B10;No;No;Plate1;Yes;69.89;0.0199
+BT01_F05_S4_W17;T01;F05;Mid Gut content;Sample;Probiotics;Yes;W17;F1;No;No;Plate6;Yes;61.34;0.0185
+BT01_F06_S4_W17;T01;F06;Mid Gut content;Sample;Probiotics;Yes;W17;H7;No;No;Plate5;Yes;44.09;0.0187
+BT01_F07_S4_W17;T01;F07;Mid Gut content;Sample;Probiotics;Yes;W17;D8;Yes;No;Plate6;Yes;99;0.0242
+BT01_F08_S4_W17;T01;F08;Mid Gut content;Sample;Probiotics;Yes;W17;F11;No;No;Plate2;Yes;91.6;0.0212
+BT01_F09_S4_W17;T01;F09;Mid Gut content;Sample;Probiotics;Yes;W17;C5;No;No;Plate5;Yes;59.27;0.0211
+BT01_F10_S4_W17;T01;F10;Mid Gut content;Sample;Probiotics;Yes;W17;B12;No;No;Plate5;Yes;60.93;0.0192
+BT01_F11_S4_W17;T01;F11;Mid Gut content;Sample;Probiotics;Yes;W17;F10;No;No;Plate1;Yes;61.68;0.019
+BT01_F12_S4_W17;T01;F12;Mid Gut content;Sample;Probiotics;Yes;W17;E10;No;No;Plate4;Yes;63.68;0.0237
+BT01_F13_S4_W17;T01;F13;Mid Gut content;Sample;Probiotics;Yes;W17;G3;No;No;Plate5;Yes;62.67;0.0178
+BT01_F14_S4_W17;T01;F14;Mid Gut content;Sample;Probiotics;Yes;W17;A9;No;No;Plate2;Yes;60.81;0.0236
+BT01_F15_S4_W17;T01;F15;Mid Gut content;Sample;Probiotics;Yes;W17;B2;No;No;Plate2;Yes;68.95;0.0204
+BT01_F16_S4_W17;T01;F16;Mid Gut content;Sample;Probiotics;Yes;W17;B2;No;No;Plate5;Yes;62.28;0.0213
+BT01_F17_S4_W17;T01;F17;Mid Gut content;Sample;Probiotics;Yes;W17;B7;No;No;Plate3;Yes;49.09;0.02
+BT01_F18_S4_W17;T01;F18;Mid Gut content;Sample;Probiotics;Yes;W17;C3;No;No;Plate1;Yes;73.12;0.0212
+BT01_F19_S4_W17;T01;F19;Mid Gut content;Sample;Probiotics;Yes;W17;B1;No;No;Plate3;Yes;90.35;0.0262
+BT01_F20_S4_W17;T01;F20;Mid Gut content;Sample;Probiotics;Yes;W17;B8;Yes;No;Plate6;Yes;32.39;0.0174
+BT01_F21_S4_W17;T01;F21;Mid Gut content;Sample;Probiotics;Yes;W17;G10;No;No;Plate1;Yes;64.29;0.022
+BT01_F22_S4_W17;T01;F22;Mid Gut content;Sample;Probiotics;Yes;W17;D7;No;No;Plate1;Yes;71.81;0.0226
+BT01_F23_S4_W17;T01;F23;Mid Gut content;Sample;Probiotics;Yes;W17;B4;No;No;Plate6;Yes;65.23;0.021
+BT01_F24_S4_W17;T01;F24;Mid Gut content;Sample;Probiotics;Yes;W17;F2;No;No;Plate1;Yes;66.94;0.0202
+BT01_F25_S4_W17;T01;F25;Mid Gut content;Sample;Probiotics;Yes;W17;E4;No;No;Plate5;Yes;66.03;0.0208
+BT01_F26_S4_W17;T01;F26;Mid Gut content;Sample;Probiotics;Yes;W17;E8;No;No;Plate5;Yes;66.33;0.0213
+BT01_F27_S4_W17;T01;F27;Mid Gut content;Sample;Probiotics;Yes;W17;C4;No;No;Plate6;Yes;58.57;0.0209
+BT01_F28_S4_W17;T01;F28;Mid Gut content;Sample;Probiotics;Yes;W17;D4;No;No;Plate3;Yes;35.87;0.0184
+BT01_F29_S4_W17;T01;F29;Mid Gut content;Sample;Probiotics;Yes;W17;C10;No;No;Plate3;Yes;35.25;0.0185
+BT01_F30_S4_W17;T01;F30;Mid Gut content;Sample;Probiotics;Yes;W17;F5;No;No;Plate3;Yes;48.71;0.0185
+BT01_F31_S4_W17;T01;F31;Mid Gut content;Sample;Probiotics;Yes;W17;H9;No;No;Plate6;Yes;49.75;0.0167
+BT01_F32_S4_W17;T01;F32;Mid Gut content;Sample;Probiotics;Yes;W17;G4;No;No;Plate2;Yes;67.47;0.0196
+BT01_F33_S4_W17;T01;F33;Mid Gut content;Sample;Probiotics;Yes;W17;B7;No;No;Plate5;Yes;57.36;0.0196
+BT01_F34_S4_W17;T01;F34;Mid Gut content;Sample;Probiotics;Yes;W17;B1;No;No;Plate4;Yes;59.59;0.0195
+BT01_F35_S4_W17;T01;F35;Mid Gut content;Sample;Probiotics;Yes;W17;C4;No;No;Plate1;Yes;40.45;0.0172
+BT01_F36_S4_W17;T01;F36;Mid Gut content;Sample;Probiotics;Yes;W17;E9;No;No;Plate2;Yes;48.75;0.019
+BT01_F37_S4_W17;T01;F37;Mid Gut content;Sample;Probiotics;Yes;W17;F3;No;No;Plate5;Yes;38.67;0.0189
+BT01_F38_S4_W17;T01;F38;Mid Gut content;Sample;Probiotics;Yes;W17;C12;No;No;Plate3;Yes;59.03;0.0194
+BT01_F39_S4_W17;T01;F39;Mid Gut content;Sample;Probiotics;Yes;W17;F1;No;No;Plate5;Yes;90.41;0.0211
+BT01_F40_S4_W17;T01;F40;Mid Gut content;Sample;Probiotics;Yes;W17;A4;No;No;Plate3;Yes;40.68;0.019
+ET01_F01_S4_W17;T01;F01;Mid Gut content;Sample;Control;No;W17;B7;Yes;No;Plate6;Yes;38;0.0177
+ET01_F02_S4_W17;T01;F02;Mid Gut content;Sample;Control;No;W17;C2;No;No;Plate6;Yes;56.47;0.0193
+ET01_F03_S4_W17;T01;F03;Mid Gut content;Sample;Control;No;W17;H1;No;No;Plate2;Yes;67.69;0.0201
+ET01_F04_S4_W17;T01;F04;Mid Gut content;Sample;Control;No;W17;C7;No;No;Plate3;Yes;49.01;0.0191
+ET01_F06_S4_W17;T01;F06;Mid Gut content;Sample;Control;No;W17;C1;No;No;Plate4;Yes;58.7;0.0201
+ET01_F07_S4_W17;T01;F07;Mid Gut content;Sample;Control;No;W17;B3;No;No;Plate5;Yes;70.81;0.0202
+ET01_F08_S4_W17;T01;F08;Mid Gut content;Sample;Control;No;W17;F10;No;No;Plate4;Yes;53.39;0.019
+ET01_F09_S4_W17;T01;F09;Mid Gut content;Sample;Control;No;W17;F1;No;No;Plate3;Yes;60.62;0.0183
+ET01_F10_S4_W17;T01;F10;Mid Gut content;Sample;Control;No;W17;D10;No;No;Plate5;Yes;38.93;0.0209
+ET01_F11_S4_W17;T01;F11;Mid Gut content;Sample;Control;No;W17;H8;No;No;Plate6;Yes;55.06;0.0184
+ET01_F12_S4_W17;T01;F12;Mid Gut content;Sample;Control;No;W17;D3;No;No;Plate6;Yes;46.52;0.0222
+ET01_F14_S4_W17;T01;F14;Mid Gut content;Sample;Control;No;W17;F9;No;No;Plate3;Yes;67.27;0.0212
+ET01_F15_S4_W17;T01;F15;Mid Gut content;Sample;Control;No;W17;D7;Yes;No;Plate6;Yes;90.53;0.0209
+ET01_F16_S4_W17;T01;F16;Mid Gut content;Sample;Control;No;W17;F5;No;No;Plate1;Yes;46.18;0.0188
+ET01_F17_S4_W17;T01;F17;Mid Gut content;Sample;Control;No;W17;E5;No;No;Plate5;Yes;82.17;0.0253
+ET01_F18_S4_W17;T01;F18;Mid Gut content;Sample;Control;No;W17;D1;No;No;Plate1;Yes;70.66;0.0193
+ET01_F19_S4_W17;T01;F19;Mid Gut content;Sample;Control;No;W17;E11;No;No;Plate1;Yes;69.6;0.0224
+ET01_F20_S4_W17;T01;F20;Mid Gut content;Sample;Control;No;W17;C9;No;No;Plate2;Yes;56.16;0.0196
+ET01_F22_S4_W17;T01;F22;Mid Gut content;Sample;Control;No;W17;A9;No;No;Plate4;Yes;46.46;0.0189
+ET01_F23_S4_W17;T01;F23;Mid Gut content;Sample;Control;No;W17;B9;No;No;Plate6;Yes;108.97;0.021
+ET01_F24_S4_W17;T01;F24;Mid Gut content;Sample;Control;No;W17;F8;No;No;Plate2;Yes;64.66;0.0199
+ET01_F25_S4_W17;T01;F25;Mid Gut content;Sample;Control;No;W17;A1;No;No;Plate3;Yes;54.96;0.0188
+ET01_F26_S4_W17;T01;F26;Mid Gut content;Sample;Control;No;W17;E12;No;No;Plate4;Yes;81.81;0.0242
+ET01_F27_S4_W17;T01;F27;Mid Gut content;Sample;Control;No;W17;E2;No;No;Plate6;Yes;59.02;0.0215
+ET01_F28_S4_W17;T01;F28;Mid Gut content;Sample;Control;No;W17;F4;No;No;Plate1;Yes;60.48;0.0187
+ET01_F30_S4_W17;T01;F30;Mid Gut content;Sample;Control;No;W17;D12;No;No;Plate1;Yes;59.18;0.0186
+ET01_F31_S4_W17;T01;F31;Mid Gut content;Sample;Control;No;W17;B6;No;No;Plate5;Yes;73.15;0.0267
+ET01_F32_S4_W17;T01;F32;Mid Gut content;Sample;Control;No;W17;B7;No;No;Plate4;Yes;55.38;0.0185
+ET01_F33_S4_W17;T01;F33;Mid Gut content;Sample;Control;No;W17;D4;No;No;Plate6;Yes;43.41;0.0193
+ET01_F34_S4_W17;T01;F34;Mid Gut content;Sample;Control;No;W17;B11;No;No;Plate3;Yes;55.34;0.0193
+ET01_F35_S4_W17;T01;F35;Mid Gut content;Sample;Control;No;W17;B2;No;No;Plate3;Yes;60.81;0.0199
+ET01_F36_S4_W17;T01;F36;Mid Gut content;Sample;Control;No;W17;C5;No;No;Plate1;Yes;72.25;0.0198
+ET01_F38_S4_W17;T01;F38;Mid Gut content;Sample;Control;No;W17;E4;No;No;Plate6;Yes;82.29;0.0213
+ET01_F39_S4_W17;T01;F39;Mid Gut content;Sample;Control;No;W17;F12;No;No;Plate2;Yes;62.6;0.021
+ET01_F40_S4_W17;T01;F40;Mid Gut content;Sample;Control;No;W17;C6;No;No;Plate2;Yes;72.42;0.0191
+ZT01_F01_S4_W17;T01;F01;Mid Gut content;Sample;Synbiotics;Yes;W17;A7;No;No;Plate5;Yes;54.24;0.0198
+ZT01_F02_S4_W17;T01;F02;Mid Gut content;Sample;Synbiotics;Yes;W17;H1;No;No;Plate6;Yes;52.58;0.0192
+ZT01_F03_S4_W17;T01;F03;Mid Gut content;Sample;Synbiotics;Yes;W17;H6;No;No;Plate1;Yes;56.84;0.0194
+ZT01_F04_S4_W17;T01;F04;Mid Gut content;Sample;Synbiotics;Yes;W17;G2;No;No;Plate6;Yes;50.24;0.0195
+ZT01_F05_S4_W17;T01;F05;Mid Gut content;Sample;Synbiotics;Yes;W17;C1;No;No;Plate2;Yes;58.54;0.0209
+ZT01_F06_S4_W17;T01;F06;Mid Gut content;Sample;Synbiotics;Yes;W17;H10;No;No;Plate5;Yes;47.15;0.0179
+ZT01_F07_S4_W17;T01;F07;Mid Gut content;Sample;Synbiotics;Yes;W17;H9;No;No;Plate5;Yes;52.64;0.0188
+ZT01_F08_S4_W17;T01;F08;Mid Gut content;Sample;Synbiotics;Yes;W17;A8;No;No;Plate4;Yes;53.49;0.0195
+ZT01_F09_S4_W17;T01;F09;Mid Gut content;Sample;Synbiotics;Yes;W17;G12;No;No;Plate1;Yes;63.75;0.0205
+ZT01_F10_S4_W17;T01;F10;Mid Gut content;Sample;Synbiotics;Yes;W17;D1;No;No;Plate5;Yes;59.24;0.0207
+ZT01_F11_S4_W17;T01;F11;Mid Gut content;Sample;Synbiotics;Yes;W17;D7;No;No;Plate2;Yes;63.56;0.0204
+ZT01_F12_S4_W17;T01;F12;Mid Gut content;Sample;Synbiotics;Yes;W17;H7;Yes;No;Plate6;Yes;84.92;0.0252
+ZT01_F13_S4_W17;T01;F13;Mid Gut content;Sample;Synbiotics;Yes;W17;B11;No;No;Plate4;Yes;43.56;0.031
+ZT01_F14_S4_W17;T01;F14;Mid Gut content;Sample;Synbiotics;Yes;W17;A8;No;No;Plate3;Yes;48.83;0.0198
+ZT01_F15_S4_W17;T01;F15;Mid Gut content;Sample;Synbiotics;Yes;W17;F9;No;No;Plate5;Yes;57.93;0.0198
+ZT01_F16_S4_W17;T01;F16;Mid Gut content;Sample;Synbiotics;Yes;W17;A6;No;No;Plate5;Yes;51.29;0.0183
+ZT01_F17_S4_W17;T01;F17;Mid Gut content;Sample;Synbiotics;Yes;W17;F2;No;No;Plate2;Yes;64.76;0.0226
+ZT01_F18_S4_W17;T01;F18;Mid Gut content;Sample;Synbiotics;Yes;W17;F7;No;No;Plate6;Yes;38.02;0.0177
+ZT01_F19_S4_W17;T01;F19;Mid Gut content;Sample;Synbiotics;Yes;W17;F7;No;No;Plate4;Yes;61.71;0.0211
+ZT01_F20_S4_W17;T01;F20;Mid Gut content;Sample;Synbiotics;Yes;W17;H3;No;No;Plate2;Yes;42.13;0.0187
+ZT01_F21_S4_W17;T01;F21;Mid Gut content;Sample;Synbiotics;Yes;W17;G7;No;Yes;Plate4;Yes;61.41;0.0214
+ZT01_F22_S4_W17;T01;F22;Mid Gut content;Sample;Synbiotics;Yes;W17;G3;No;No;Plate1;Yes;72.47;0.0228
+ZT01_F23_S4_W17;T01;F23;Mid Gut content;Sample;Synbiotics;Yes;W17;A2;No;No;Plate6;Yes;61.88;0.0199
+ZT01_F24_S4_W17;T01;F24;Mid Gut content;Sample;Synbiotics;Yes;W17;G12;No;No;Plate2;Yes;50.74;0.0181
+ZT01_F25_S4_W17;T01;F25;Mid Gut content;Sample;Synbiotics;Yes;W17;F3;No;No;Plate3;Yes;53.03;0.0216
+ZT01_F26_S4_W17;T01;F26;Mid Gut content;Sample;Synbiotics;Yes;W17;G6;No;No;Plate2;Yes;45.24;0.018
+ZT01_F27_S4_W17;T01;F27;Mid Gut content;Sample;Synbiotics;Yes;W17;C7;No;No;Plate4;Yes;67.67;0.0185
+ZT01_F28_S4_W17;T01;F28;Mid Gut content;Sample;Synbiotics;Yes;W17;F1;No;No;Plate4;Yes;70.47;0.0231
+ZT01_F29_S4_W17;T01;F29;Mid Gut content;Sample;Synbiotics;Yes;W17;E10;No;No;Plate2;Yes;63.07;0.0199
+ZT01_F30_S4_W17;T01;F30;Mid Gut content;Sample;Synbiotics;Yes;W17;F4;No;No;Plate4;Yes;56.13;0.0239
+ZT01_F31_S4_W17;T01;F31;Mid Gut content;Sample;Synbiotics;Yes;W17;A6;No;No;Plate1;Yes;50.99;0.0178
+ZT01_F32_S4_W17;T01;F32;Mid Gut content;Sample;Synbiotics;Yes;W17;C2;No;No;Plate3;Yes;54.85;0.018
+ZT01_F33_S4_W17;T01;F33;Mid Gut content;Sample;Synbiotics;Yes;W17;D9;No;No;Plate6;Yes;49.3;0.018
+ZT01_F34_S4_W17;T01;F34;Mid Gut content;Sample;Synbiotics;Yes;W17;B9;No;No;Plate3;Yes;65.34;0.0179
+ZT01_F35_S4_W17;T01;F35;Mid Gut content;Sample;Synbiotics;Yes;W17;B6;No;No;Plate1;Yes;49.4;0.0188
+ZT01_F36_S4_W17;T01;F36;Mid Gut content;Sample;Synbiotics;Yes;W17;G7;No;No;Plate2;Yes;80.13;0.0188
+ZT01_F37_S4_W17;T01;F37;Mid Gut content;Sample;Synbiotics;Yes;W17;F9;Yes;No;Plate6;Yes;81.34;0.0214
+ZT01_F38_S4_W17;T01;F38;Mid Gut content;Sample;Synbiotics;Yes;W17;H6;No;No;Plate5;Yes;61.82;0.0216
+ZT01_F39_S4_W17;T01;F39;Mid Gut content;Sample;Synbiotics;Yes;W17;D8;No;No;Plate1;Yes;79.31;0.0217
+ZT01_F40_S4_W17;T01;F40;Mid Gut content;Sample;Synbiotics;Yes;W17;B3;No;No;Plate4;Yes;45.05;0.0179
+Ctrl_Feed_1;NA;NA;NA;Feed sample;NA;NA;NA;F5;No;No;Plate6;Yes;NA;NA
+Ctrl_Feed_2;NA;NA;NA;Feed sample;NA;NA;NA;G5;No;No;Plate6;Yes;NA;NA
+Ctrl_Feed_3;NA;NA;NA;Feed sample;NA;NA;NA;H5;No;No;Plate6;Yes;NA;NA
+Extraction_Neg1;NA;NA;NA;Blank;NA;NA;NA;H2;No;No;Plate3;No;NA;NA
+Extraction_Neg2;NA;NA;NA;Blank;NA;NA;NA;G5;No;No;Plate3;No;NA;NA
+Extraction_Neg3;NA;NA;NA;Blank;NA;NA;NA;F4;No;No;Plate2;No;NA;NA
+Extraction_Neg4;NA;NA;NA;Blank;NA;NA;NA;E2;No;No;Plate3;No;NA;NA
+Extraction_Neg5;NA;NA;NA;Blank;NA;NA;NA;F2;No;No;Plate4;No;NA;NA
+Extraction_Neg6;NA;NA;NA;Blank;NA;NA;NA;H2;No;No;Plate2;No;NA;NA
+Extraction_Neg7;NA;NA;NA;Blank;NA;NA;NA;D11;No;No;Plate5;No;NA;NA
+Extraction_Neg8;NA;NA;NA;Blank;NA;NA;NA;H11;No;No;Plate1;No;NA;NA
+Lib_Blk_1;NA;NA;NA;Blank;NA;NA;NA;C3;No;No;Plate4;No;NA;NA
+Lib_Blk_2;NA;NA;NA;Blank;NA;NA;NA;F7;No;No;Plate2;No;NA;NA
+Lib_Blk_3;NA;NA;NA;Blank;NA;NA;NA;A7;No;No;Plate1;No;NA;NA
+Lib_Blk_4;NA;NA;NA;Blank;NA;NA;NA;F4;No;No;Plate6;No;NA;NA
+Lib_Blk_5;NA;NA;NA;Blank;NA;NA;NA;F7;No;No;Plate1;No;NA;NA
+Lib_Blk_6;NA;NA;NA;Blank;NA;NA;NA;F12;No;No;Plate1;No;NA;NA
+Lib_Blk_7;NA;NA;NA;Blank;NA;NA;NA;H12;No;No;Plate5;No;NA;NA
+Lib_Blk_8;NA;NA;NA;Blank;NA;NA;NA;E5;No;No;Plate2;No;NA;NA
+Lib_Blk_9;NA;NA;NA;Blank;NA;NA;NA;F8;No;No;Plate4;No;NA;NA
+PCR_Blk_1;NA;NA;NA;Blank;NA;NA;NA;H2;No;No;Plate6;No;NA;NA
+PCR_Blk_10;NA;NA;NA;Blank;NA;NA;NA;F3;No;No;Plate4;No;NA;NA
+PCR_Blk_2;NA;NA;NA;Blank;NA;NA;NA;D6;No;No;Plate3;No;NA;NA
+PCR_Blk_3;NA;NA;NA;Blank;NA;NA;NA;A1;No;No;Plate4;No;NA;NA
+PCR_Blk_4;NA;NA;NA;Blank;NA;NA;NA;B6;No;No;Plate2;No;NA;NA
+PCR_Blk_5;NA;NA;NA;Blank;NA;NA;NA;G4;No;No;Plate1;No;NA;NA
+PCR_Blk_6;NA;NA;NA;Blank;NA;NA;NA;G9;No;No;Plate5;No;NA;NA
+PCR_Blk_8;NA;NA;NA;Blank;NA;NA;NA;H6;No;No;Plate4;No;NA;NA
+PCR_Blk_9;NA;NA;NA;Blank;NA;NA;NA;H1;No;No;Plate3;No;NA;NA
+Pro_Feed_1;NA;NA;NA;Feed sample;NA;NA;NA;A6;No;No;Plate6;Yes;NA;NA
+Pro_Feed_2;NA;NA;NA;Feed sample;NA;NA;NA;B6;No;No;Plate6;Yes;NA;NA
+Pro_Feed_3;NA;NA;NA;Feed sample;NA;NA;NA;C6;No;No;Plate6;Yes;NA;NA
+Syn_Feed_1;NA;NA;NA;Feed sample;NA;NA;NA;E6;No;No;Plate6;Yes;NA;NA
+Syn_Feed_2;NA;NA;NA;Feed sample;NA;NA;NA;F6;No;No;Plate6;Yes;NA;NA
+Syn_Feed_3;NA;NA;NA;Feed sample;NA;NA;NA;G6;No;No;Plate6;Yes;NA;NA
+Water_sample_1;NA;NA;NA;Water sample;NA;NA;W17;A5;No;No;Plate6;Yes;NA;NA
+Water_sample_2;NA;NA;NA;Water sample;NA;NA;W17;B5;No;No;Plate6;Yes;NA;NA
+Water_sample_3;NA;NA;NA;Water sample;NA;NA;W17;C5;No;No;Plate6;Yes;NA;NA
+Water_sample_4;NA;NA;NA;Water sample;NA;NA;W17;D5;No;No;Plate6;Yes;NA;NA
+Water_sample_5;NA;NA;NA;Water sample;NA;NA;W17;E5;No;No;Plate6;Yes;NA;NA
