@@ -1,5 +1,5 @@
   ---
-title: "Metabolomics Analysis"
+title: "MetDNA Analysis"
 author: "Jacob Agerbo Rasmussen"
 date: "10/22/2020"
 output:
@@ -12,12 +12,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r load dependencies, include=FALSE}
-library(ggplot2)
 library(readxl)
+library(ggplot2)
 library(phyloseq)
-library(ape)
-library(dplyr)
 library(MetaboDiff)
+library(ape)
+library(RColorBrewer)
+library(cowplot)
+library(EnhancedVolcano)
 ```
 
 ```{r load data}
@@ -58,7 +60,6 @@ rownames(Ant) <- names
 # physeq element
 physeq <- phyloseq(otu_table(ft, taxa_are_rows = TRUE), tax_table(Ant),sample_data(md))
 random_tree = rtree(ntaxa(physeq), rooted=TRUE, tip.label=taxa_names(physeq))
-plot(random_tree)
 physeq = merge_phyloseq(physeq, random_tree)
 physeq.sort = transform_sample_counts(physeq, function(x) x/sum(x))
 Myco_x_meta = subset_samples(physeq.sort, Keep=="Yes")
@@ -118,6 +119,7 @@ p_Steroids =p2 + geom_point(size=7.5, alpha = as.numeric(md_ord$Mycoplasma)) +
   theme_minimal() + scale_fill_manual(values = group_pal) +
   scale_color_manual(values = group_pal)
 
+# Remove hashtag below to write out output
 #pdf("jaccard_ordination_metabolites_x_mycoplasma_classes.pdf", height = 8, width = 12)
 cowplot::plot_grid(p_AA,
                    p_Lipids,
@@ -129,32 +131,7 @@ cowplot::plot_grid(p_AA,
 
 ```
 
-```{r}
-Myco_x_meta <- subset_samples(physeq, Keep=="Yes")
-Myco_x_meta_1 = subset_samples(Myco_x_meta, Replicate=="1")
-
-Myco_x_meta_2 = subset_samples(Myco_x_meta, Replicate=="2")
-
-ft_table_1 <- Myco_x_meta_1@otu_table@.Data
-ft_table_2 <- Myco_x_meta_2@otu_table@.Data
-
-ft_tax <- Myco_x_meta_1@tax_table@.Data
-
-md_rep_1 <- as.data.frame(Myco_x_meta_1@sam_data@.Data)
-md_rep_2 <- as.data.frame(Myco_x_meta_2@sam_data@.Data)
-colnames(md_rep_1) <- colnames(md)
-colnames(md_rep_2) <- colnames(md)
-
-
-#write.csv(ft_tax,"ft_tax.csv")
-#write.csv(ft_table_1,"ft_table_rep_1.csv")
-#write.csv(ft_table_2,"ft_table_rep_2.csv")
-#write.csv(md_rep_1,"md_rep_1.csv")
-#write.csv(md_rep_2,"md_rep_2.csv")
-```
-
-
-This is a home knitted version of a differential abundance test
+This is a home knitted version of a differential test for relative intensity of metabolites, using non paramental kruskal wallis, comparing mean of metabolites between feeding groups
 ```{r - Differential Abundance testing - Categorical - w/ Kruskal Wallis}
 library("beeswarm")
 ft.diff <- t(ft)
@@ -183,6 +160,7 @@ colnames(corres) <- c('p.value','p.value.corrected','feature id')
 ```{r write out table of all p values}
 #write.table(corres, 'DifferentialAbundance.txt', sep = '\t', quote = F, row.names = F)
 ```
+
 ```{r - choose only significant adjusted p-values and create boxplots for each comparison}
 length(which(as.numeric(corres[,2]) < 0.05))
 corressig <- corres[which(as.numeric(corres[,2]) < 0.05),]
@@ -199,12 +177,10 @@ par(mfrow = c(2,3))
     df <- as.data.frame(df)
     df$SampleGroup <- as.character(df$SampleGroup)
     df$`Summed Precursor Ion Intensities/MS2 Ion` <- as.numeric(as.character(df$`Summed Precursor Ion Intensities/MS2 Ion`))
-    
-    #boxplot(`Summed Precursor Ion Intensities/MS2 Ion` ~ SampleGroup, data = df, outline = FALSE, main = selid)
-    #beeswarm(`Summed Precursor Ion Intensities/MS2 Ion` ~ SampleGroup, data = df, col = c(4,2), pch = 16, add = TRUE)
-}
+  }
 #dev.off()
 ```
+
 ```{r}
 library(ggpubr)
 library(rstatix)
@@ -218,8 +194,7 @@ data <- as.data.frame(data)
 data$Annotation <- paste(data$Compound_Name,data$cmp)
 data <- data[data$Annotation != "NA NA",]
 krusk_data <- data
-```
-```{r - choose only significant adjusted p-values and create boxplots for each comparison}
+
 plot_list = list()
 for (i in 1:length(rownames(data))){
     selid <- rownames(corressig)[i]
@@ -242,6 +217,7 @@ for (i in 1:length(rownames(data))){
     stat.test <- stat.test %>%
       add_x_position(x = "SampleGroup", dodge = 0.8) %>%
       add_y_position()
+    
     # Create a box plot
     p = ggboxplot(
       df, x = "SampleGroup", y = "Summed Precursor Ion Intensities/MS2 Ion", 
@@ -254,20 +230,64 @@ for (i in 1:length(rownames(data))){
         stat.test,  label = "{p.adj} {p.adj.signif}", tip.length = 0.02,
         step.increase = 0.075, 
         bracket.nudge.y = max(df$`Summed Precursor Ion Intensities/MS2 Ion`))
+    
+    ## Save  output in lists
     plot_list[[i]] = p
 }
-```
-```{r}
-#pdf("Boxplot_of_significant_compounds_w_sig.pdf")
-plot_list
+
+#Remove hashtag below to write out output
+#pdf("Boxplot_of_significant_compounds_w_sig_notification.pdf")
+#plot_list
 #dev.off()
 ```
 
-```{r - }
+```{r Generate summary table}
+## Generate summary of wilcoxon statistics of metabolites between feeding groups - same stats, which are shown in boxplot figure
+stat_list_kw = list()
+for (i in 1:length(rownames(data))){
+    selid <- rownames(corressig)[i]
+    comp <- ftplot[,which(colnames(ftplot) == selid)]
+    
+    df <- cbind(as.character(md.diff$Feed),comp)
+    colnames(df) <- c('SampleGroup','Summed Precursor Ion Intensities/MS2 Ion')
+    df <- as.data.frame(df)
+    df$SampleGroup <- as.character(df$SampleGroup)
+    df$`Summed Precursor Ion Intensities/MS2 Ion` <- as.numeric(as.character(df$`Summed Precursor Ion Intensities/MS2 Ion`))
+    
+    #boxplot(`Summed Precursor Ion Intensities/MS2 Ion` ~ SampleGroup, data = df, outline = FALSE, main = data$Annotation[i], col = group_pal)
+    #beeswarm(`Summed Precursor Ion Intensities/MS2 Ion` ~ SampleGroup, data = df, col = "black", pch = 16, add = TRUE)
+    # Add p-values onto the box plots
+    stat.test <- df %>%
+      group_by("SampleGroup") %>%
+      wilcox_test(`Summed Precursor Ion Intensities/MS2 Ion` ~ SampleGroup) %>%
+      adjust_pvalue(method = "fdr") %>%
+      add_significance("p.adj")
+    stat.test <- stat.test %>%
+      add_x_position(x = "SampleGroup", dodge = 0.8) %>%
+      add_y_position()
+    
+    stat_list_kw[[i]] = stat.test
+}
+
+## Make statistic summary of wilcoxon pairwise test of metabolites between groups
+stat_list_kw  <-  as.data.frame(matrix(unlist(stat_list_kw), nrow=length(unlist(stat_list_kw[1]))))
+stat_list_kw <- t(stat_list_kw)
+rownames(stat_list_kw) <- rownames(data)
+# remove redundant columns
+stat_list_kw <- stat_list_kw[,-c(1,2,3,4,5,7,9,11,13,14,15,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45)]
+# Add understanbable column names
+names <- c("Y","gr.1","gr.2_1","gr.2_2","n1","n2_1","n2_2","statistic.1","statistic.2_1","statistic.2_2","p.1","p.2_1","p.2_2","p.adj.1","p.adj.2_1","p.adj.2_2","signif.1","signif.2_1","signif.2_2")
+colnames(stat_list_kw) <- names
+
+
+#Remove hashtag below to write out output
+#write.csv(stat_list_kw, "Wilcoxon_Summary.csv")
+```
+
+Use Metabodiff to apply normalisation and knn imputation. Further also apply differential test between usage of feed additives and feeding groups. 
+```{r - Metabodiff normalisation}
 met <- create_mae(ft,tax,md)
 md$Feed_Additives
-```
-```{r - Metabodiff normalization}
 met = knn_impute(met,cutoff=0.4)
 met <- normalize_met(met)
 quality_plot(met,
@@ -290,9 +310,6 @@ df <- cbind(df,tax)
 
 df_sig <- df[df$adj_pval<0.5,]
 
-## Plot out differences between group with or without feed additives (CTRL vs. PROand SYN)
-
-library(EnhancedVolcano)
 p1 = EnhancedVolcano(df,
     lab = df$Compound_Name,
     boxedLabels = FALSE,
@@ -303,7 +320,7 @@ p1 = EnhancedVolcano(df,
     FCcutoff = 1.0,
     labSize = 3,
     pointSize = c(ifelse(df$adj_pval<10e-3, 5, 1)),
-    title = 'Differential Abundance of metabolites related to feed',
+    title = 'Differential Abundance of metabolites related to feed additives',
     legendPosition = 'bottom')
 p1
 
@@ -314,8 +331,8 @@ p1
 #write.csv(df,file = "Diff_test_Metabodiff.csv")
 #write.csv(df_sig,file = "Sig_Diff_test_Metabodiff.csv")
 ```
-```{r }
-library(RColorBrewer)
+
+```{r Create scatterplots with correlations within each group}
 ft_selected <- ft[match(df_sig$Metabolites,rownames(ft)),]
 ftt_selected <- t(apply(ft_selected, 1, function(x) (x)/sum((x))))
 ftt_selected <- as.data.frame(ftt_selected)
@@ -323,7 +340,8 @@ ftt_selected <- t(ftt_selected)
 colnames(ftt_selected) <- paste("X",colnames(ftt_selected), sep = ) #Add X to metabolite names, since its and integer name
 
 test <- cbind(ftt_selected,md)
-plot_list = list()
+plot_list_weigth = list()
+plot_list_myco = list()
 # Scatter plot colored by groups ("Species")
 for (i in 1:length(colnames(ftt_selected))){
 selid <- colnames(ftt_selected)[i]
@@ -344,23 +362,48 @@ sp <- sp +  theme(legend.position="bottom")
 yplot <- yplot + clean_theme() + rremove("legend")
 xplot <- xplot + clean_theme() + rremove("legend")
 # Arranging the plot using cowplot
-library(cowplot)
 p = plot_grid(xplot, NULL, sp, yplot, ncol = 2, align = "hv", 
           rel_widths = c(2, 1), rel_heights = c(1, 2))
-plot_list[[i]] = p
+plot_list_weigth[[i]] = p
 }
 
+# Scatter plot colored by groups ("Species")
+for (i in 1:length(colnames(ftt_selected))){
+selid <- colnames(ftt_selected)[i]
+title  <- as.data.frame(df_sig[df_sig$Metabolites == rownames(ft_selected)[i],])
+sp <- ggscatter(test, x = selid, y = "Mycoplasma",
+                color = "Feed", palette = group_pal,
+                title = title$CF_Dparent ,
+                size = 3, alpha = 0.6, add = "reg.line", conf.int = TRUE) +
+  border() +
+  stat_cor(aes(color = `Feed`),method = "pearson")
+sp
+xplot <- ggdensity(test, selid, fill = "Feed",
+                   palette = group_pal)
+yplot <- ggdensity(test, "Mycoplasma", fill = "Feed", 
+                   palette = group_pal)+ rotate()
+# Cleaning the plots
+sp <- sp +  theme(legend.position="bottom")
+yplot <- yplot + clean_theme() + rremove("legend")
+xplot <- xplot + clean_theme() + rremove("legend")
+# Arranging the plot using cowplot
+p = plot_grid(xplot, NULL, sp, yplot, ncol = 2, align = "hv", 
+          rel_widths = c(2, 1), rel_heights = c(1, 2))
+plot_list_myco[[i]] = p
+}
 ```
-
 plot
-```{r }
+```{r - plot scatter plots}
+# Remove hashtag below to write out output
 #pdf("Sig_Metabolites_and_weight.pdf")
-#plot_list
+#plot_list_weigth
+#dev.off()
+#pdf("Sig_Metabolites_and_Mycoplasma.pdf")
+#plot_list_myco
 #dev.off()
 ```
-
-Calculate pearson correlation as plotted, between metabolites and weight for each feed group & calculate pearson correlation as plotted, between metabolites and Mycoplasma for each feed group
-```{r}
+Calculate Pearson correlation as plotted, between metabolites and weight for each feed group & calculate Pearson correlation as plotted, between metabolites and Mycoplasma for each feed group
+```{r Pearson correlation of metabolite intensity and mycoplasma and weight}
 stat_list = list()
 for (i in 1:length(colnames(ftt_selected))){
 selid <- colnames(ftt_selected)[i]
@@ -423,6 +466,8 @@ data <- cbind(df_sig,stat_list)
 data <- data[,-c(13)]
 ```
 
+Write out statistics from Metabodiif between feed addtives or not, further also Pearson correlations between significant different abundant metabolites and Host weight and mycoplasma presence.
 ```{r }
-write.csv(data, "Metabolite_statistics.csv")
+# Remove hashtag below to write out output
+#write.csv(data, "Metabolite_statistics.csv")
 ```
