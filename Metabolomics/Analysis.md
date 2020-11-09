@@ -52,7 +52,13 @@ names <- Ant$ID
 Ant <- as.matrix(Ant)
 rownames(Ant) <- names
 ```
+## Ordination Analysis
+I use phyloseq for ordination analysis. To me it's very handy, when handy abundance/intensity based data together with classification and metadata.
 
+I start with generating a phyloseq object and generate a PCoA with jaccard based distances, since this is a conservative measurement 
+to minimise biases of relative intensity.
+
+I included abundance of _Mycoplasma_ in metadata to visualise how feeding type affects both _Mycoplasma_ abundance and the metabolic landscape. 
 ```{r generate phyloseq elements, because phyloseq is genious for this type of abundance data}
 # physeq element
 physeq <- phyloseq(otu_table(ft, taxa_are_rows = TRUE), tax_table(Ant),sample_data(md))
@@ -61,29 +67,21 @@ physeq = merge_phyloseq(physeq, random_tree)
 physeq.sort = transform_sample_counts(physeq, function(x) x/sum(x))
 Myco_x_meta = subset_samples(physeq.sort, Keep=="Yes")
 ```
-```{r NMDS/PCOA plot - sum normalised}
+```{r PCOA plot - sum normalised}
 #r NMDS/PCOA plot - sum normalised
-GP.ord <- ordinate(physeq, "PCoA", "jaccard")
-p1 = plot_ordination(physeq, GP.ord, type="samples", color="Feed") 
-#pdf("jaccard_ordination_metabolites.pdf", height = 12, width = 12)
-p1 + geom_point(size=4) + theme_minimal() + scale_fill_manual(values = group_pal) +
-  scale_color_manual(values = group_pal)
-#dev.off()
-
-GP.ord <- ordinate(Myco_x_meta, "PCoA", "jaccard")
-p2 = plot_ordination(Myco_x_meta, GP.ord, type="samples", color="Feed") 
+MM.ord <- ordinate(Myco_x_meta, "PCoA", "jaccard")
+p2 = plot_ordination(Myco_x_meta, MM.ord, type="samples", color="Feed") 
 #pdf("jaccard_ordination_metabolites_x_mycoplasma.pdf", height = 8, width = 12)
 md_ord <- md[md$Keep == "Yes",]
 p2 + geom_point(size=7.5, alpha = as.numeric(md_ord$Mycoplasma)) + 
   theme_minimal() + scale_fill_manual(values = group_pal) +
   scale_color_manual(values = group_pal)
 #dev.off()
-
-
-
 ```
-
-```{r Class specific Ordination}
+## Class specific Ordination
+Amino acids, lipids bile acids, and stereoids are highly relevant for high performing predators, like _O. mykiss_. 
+Therefore, we look in to the variation of these classes of metabolites.
+```{r}
 Myco_x_meta_Class <- subset_taxa(Myco_x_meta, CF_subclass=="Amino acids, peptides, and analogues")
 GP.ord <- ordinate(Myco_x_meta_Class, "PCoA", "jaccard")
 p2 = plot_ordination(Myco_x_meta_Class, GP.ord, type="samples", color="Feed") 
