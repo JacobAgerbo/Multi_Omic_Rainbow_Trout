@@ -78,6 +78,8 @@ p2 + geom_point(size=7.5, alpha = as.numeric(md_ord$Mycoplasma)) +
   scale_color_manual(values = group_pal)
 #dev.off()
 ```
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/PCoA_Myco_Meta.png)
+
 ## Class specific Ordination
 Amino acids, lipids bile acids, and stereoids are highly relevant for high performing predators, like _O. mykiss_. 
 Therefore, we look in to the variation of these classes of metabolites.
