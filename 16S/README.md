@@ -1,7 +1,9 @@
 # Analysis of 16S data from intestinal environment of rainbow trout (_Oncorhynchus mykiss_)
 
 __Author:__ Jacob Agerbo Rasmussen
+
 __Contact:__ <genomicsisawesome@gmail.com>
+
 __Date:__ 09.nov.2020
 
 Data for redoing analysis is available in underlying repository. 
