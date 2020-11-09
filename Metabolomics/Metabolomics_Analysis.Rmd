@@ -290,6 +290,8 @@ df <- cbind(df,tax)
 
 df_sig <- df[df$adj_pval<0.5,]
 
+## Plot out differences between group with or without feed additives (CTRL vs. PROand SYN)
+
 library(EnhancedVolcano)
 p1 = EnhancedVolcano(df,
     lab = df$Compound_Name,
@@ -305,12 +307,122 @@ p1 = EnhancedVolcano(df,
     legendPosition = 'bottom')
 p1
 
-save.image(file = "Metabolomics_Analysis.RData")
-
 #pdf("Differential Abundance of metabolites MetaboDiff template.pdf", height = 7.5, width = 15)
 #cowplot::plot_grid(p1, ncol = 1)
 #dev.off()
 
 #write.csv(df,file = "Diff_test_Metabodiff.csv")
 #write.csv(df_sig,file = "Sig_Diff_test_Metabodiff.csv")
+```
+```{r }
+library(RColorBrewer)
+ft_selected <- ft[match(df_sig$Metabolites,rownames(ft)),]
+ftt_selected <- t(apply(ft_selected, 1, function(x) (x)/sum((x))))
+ftt_selected <- as.data.frame(ftt_selected)
+ftt_selected <- t(ftt_selected)
+colnames(ftt_selected) <- paste("X",colnames(ftt_selected), sep = ) #Add X to metabolite names, since its and integer name
+
+test <- cbind(ftt_selected,md)
+plot_list = list()
+# Scatter plot colored by groups ("Species")
+for (i in 1:length(colnames(ftt_selected))){
+selid <- colnames(ftt_selected)[i]
+title  <- as.data.frame(df_sig[df_sig$Metabolites == rownames(ft_selected)[i],])
+sp <- ggscatter(test, x = selid, y = "Weight",
+                color = "Feed", palette = group_pal,
+                title = title$CF_Dparent ,
+                size = 3, alpha = 0.6, add = "reg.line", conf.int = TRUE) +
+  border() +
+  stat_cor(aes(color = `Feed`),method = "pearson")
+sp
+xplot <- ggdensity(test, selid, fill = "Feed",
+                   palette = group_pal)
+yplot <- ggdensity(test, "Weight", fill = "Feed", 
+                   palette = group_pal)+ rotate()
+# Cleaning the plots
+sp <- sp +  theme(legend.position="bottom")
+yplot <- yplot + clean_theme() + rremove("legend")
+xplot <- xplot + clean_theme() + rremove("legend")
+# Arranging the plot using cowplot
+library(cowplot)
+p = plot_grid(xplot, NULL, sp, yplot, ncol = 2, align = "hv", 
+          rel_widths = c(2, 1), rel_heights = c(1, 2))
+plot_list[[i]] = p
+}
+
+```
+
+plot
+```{r }
+#pdf("Sig_Metabolites_and_weight.pdf")
+#plot_list
+#dev.off()
+```
+
+Calculate pearson correlation as plotted, between metabolites and weight for each feed group & calculate pearson correlation as plotted, between metabolites and Mycoplasma for each feed group
+```{r}
+stat_list = list()
+for (i in 1:length(colnames(ftt_selected))){
+selid <- colnames(ftt_selected)[i]
+lm_data <- test[,c(selid,"Weight","Feed")]
+lm_stat.test_CTRL <- lm_data[lm_data$Feed == "CTRL",]
+lm_stat.test_PRO <- lm_data[lm_data$Feed == "Probiotics",]
+lm_stat.test_SYN <- lm_data[lm_data$Feed == "Synbiotics",]
+CTRL <- cor.test(lm_stat.test_CTRL$Weight, lm_stat.test_CTRL[,selid], 
+                    method = "pearson")
+CTRL.p.value <- CTRL$p.value
+CTRL.cor <- CTRL$estimate
+PRO <- cor.test(lm_stat.test_PRO$Weight, lm_stat.test_PRO[,selid], 
+                    method = "pearson")
+PRO.p.value <- PRO$p.value
+PRO.cor <- PRO$estimate
+SYN <- cor.test(lm_stat.test_SYN$Weight, lm_stat.test_SYN[,selid], 
+                    method = "pearson")
+SYN.p.value <- SYN$p.value
+SYN.cor <- SYN$estimate
+stat <- cbind(selid,CTRL.p.value,CTRL.cor,PRO.p.value,PRO.cor,SYN.p.value,SYN.cor)
+stat_list[[i]] = stat
+}
+stat_list  <-  as.data.frame(matrix(unlist(stat_list), nrow=length(unlist(stat_list[1]))))
+stat_list.weight <- t(stat_list)
+colnames(stat_list.weight) <- c("ID","CTRL.p.value.weight","CTRL.cor.weight","PRO.p.value.weight","PRO.cor.weight","SYN.p.value.weight","SYN.cor.weight")
+
+####
+stat_list = list()
+for (i in 1:length(colnames(ftt_selected))){
+selid <- colnames(ftt_selected)[i]
+lm_data <- test[,c(selid,"Mycoplasma","Feed")]
+lm_stat.test_CTRL <- lm_data[lm_data$Feed == "CTRL",]
+lm_stat.test_PRO <- lm_data[lm_data$Feed == "Probiotics",]
+lm_stat.test_SYN <- lm_data[lm_data$Feed == "Synbiotics",]
+CTRL <- cor.test(lm_stat.test_CTRL$Mycoplasma, lm_stat.test_CTRL[,selid], 
+                    method = "pearson")
+CTRL.p.value <- CTRL$p.value
+CTRL.cor <- CTRL$estimate
+PRO <- cor.test(lm_stat.test_PRO$Mycoplasma, lm_stat.test_PRO[,selid], 
+                    method = "pearson")
+PRO.p.value <- PRO$p.value
+PRO.cor <- PRO$estimate
+SYN <- cor.test(lm_stat.test_SYN$Mycoplasma, lm_stat.test_SYN[,selid], 
+                    method = "pearson")
+SYN.p.value <- SYN$p.value
+SYN.cor <- SYN$estimate
+stat <- cbind(selid,CTRL.p.value,CTRL.cor,PRO.p.value,PRO.cor,SYN.p.value,SYN.cor)
+stat_list[[i]] = stat
+}
+stat_list  <-  as.data.frame(matrix(unlist(stat_list), nrow=length(unlist(stat_list[1]))))
+stat_list.myco <- t(stat_list)
+colnames(stat_list.myco) <- c("ID","CTRL.p.value.Myco","CTRL.cor.Myco","PRO.p.value.Myco","PRO.cor.Myco","SYN.p.value.Myco","SYN.cor.Myco")
+
+stat_list <- cbind(stat_list.weight,stat_list.myco)
+stat_list <- as.data.frame(stat_list)
+stat_list$ID <- gsub("X ", "", as.character(stat_list$ID))
+stat_list <- stat_list[,-c(8)]
+data <- stat_list[match(stat_list$ID,df_sig$ID),]
+data <- cbind(df_sig,stat_list)
+data <- data[,-c(13)]
+```
+
+```{r }
+write.csv(data, "Metabolite_statistics.csv")
 ```
