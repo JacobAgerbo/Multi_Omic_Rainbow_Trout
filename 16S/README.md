@@ -6,9 +6,10 @@ __Contact:__ <genomicsisawesome@gmail.com>
 
 __Date:__ 09.nov.2020
 
-Data for redoing analysis is available in underlying repository. 
-Raw 16S .fq data is available at ENA project repository: XXXXX, when article is accepted.
-Bioinformatic pipeline can be found at https://github.com/JacobAgerbo/Data2Result/tree/master/Metabarcoding
+## Data availability
+*Data for redoing analysis is available in underlying repository. 
+*Raw 16S .fq data is available at ENA project repository: XXXXX, when article is accepted.
+*Bioinformatic pipeline can be found at https://github.com/JacobAgerbo/Data2Result/tree/master/Metabarcoding
 
 
 
