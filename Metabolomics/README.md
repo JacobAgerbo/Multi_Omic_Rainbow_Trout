@@ -10,6 +10,8 @@ ________________________________________________________________________________
 ```r
 library(readxl)
 library(ggplot2)
+library(ggpubr)
+library(rstatix)
 library(phyloseq)
 library(MetaboDiff)
 library(ape)
@@ -125,10 +127,13 @@ cowplot::plot_grid(p_AA,
                    labels = c('Amino acids, peptides, and analogues', 'Lipids and lipid-like molecules',
                               'Bile acids, alcohols and derivatives','Steroids and steroid derivatives'), ncol = 2)
 #dev.off()
-
 ```
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/PCoA_Myco_Meta_Class.png)
+
+## Differential intensity of metabolites across feeding types
 
 This is a home knitted version of a differential test for relative intensity of metabolites, using non paramental kruskal wallis, comparing mean of metabolites between feeding groups
+
 ```{r - Differential Abundance testing - Categorical - w/ Kruskal Wallis}
 library("beeswarm")
 ft.diff <- t(ft)
@@ -145,20 +150,16 @@ krusk <- function (x) {
   out <- tryCatch(unlist(kruskal.test(scale(ftt[,x])[,1] ~ as.factor(cats))[c("p.value")]), error = function(e) return(NA))
   return(out)
 }
-
-###
 corres <- t(sapply(1:ncol(ftt), krusk ))
 corres <- cbind(unlist(corres[1,]),p.adjust(unlist(corres[1,]), method = "fdr"))
-
 rownames(corres) <- colnames(ftt)
 corres <- cbind(corres,rownames(corres))
 colnames(corres) <- c('p.value','p.value.corrected','feature id')
-```
-```{r write out table of all p values}
+
 #write.table(corres, 'DifferentialAbundance.txt', sep = '\t', quote = F, row.names = F)
 ```
-
-```{r - choose only significant adjusted p-values and create boxplots for each comparison}
+Only significant adjusted p-values were chosen and boxplots were created for annotated metabolites
+```
 length(which(as.numeric(corres[,2]) < 0.05))
 corressig <- corres[which(as.numeric(corres[,2]) < 0.05),]
 
@@ -176,11 +177,7 @@ par(mfrow = c(2,3))
     df$`Summed Precursor Ion Intensities/MS2 Ion` <- as.numeric(as.character(df$`Summed Precursor Ion Intensities/MS2 Ion`))
   }
 #dev.off()
-```
 
-```{r create boxplots of significant metabolites}
-library(ggpubr)
-library(rstatix)
 sig_tax <- Ant[order(match(rownames(corressig), Ant[,1])),]
 st <- sig_tax[,c(1,8,9)]
 
@@ -234,9 +231,12 @@ for (i in 1:length(rownames(data))){
 
 #Remove hashtag below to write out output
 #pdf("Boxplot_of_significant_compounds_w_sig_notification.pdf")
-plot_list
+plot_list[5]
 #dev.off()
 ```
+
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/Acetyl_Ornithine_boxplot.png)
+
 
 ```{r Generate summary table}
 ## Generate summary of wilcoxon statistics of metabolites between feeding groups - same stats, which are shown in boxplot figure
