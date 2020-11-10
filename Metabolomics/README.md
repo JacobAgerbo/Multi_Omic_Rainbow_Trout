@@ -188,15 +188,17 @@ par(mfrow = c(2,3))
     df$SampleGroup <- as.character(df$SampleGroup)
     df$`Summed Precursor Ion Intensities/MS2 Ion` <- as.numeric(as.character(df$`Summed Precursor Ion Intensities/MS2 Ion`))
   }
-#dev.off()
+```
 
+We select only annotated metabolites and compare those between each feeding type.
+Selection results in 15 annotated metabolites, which are significant between groups. Here we used GNPS and MetDNA to annotate metabolites.
+
+```r
 sig_tax <- Ant[order(match(rownames(corressig), Ant[,1])),]
 st <- sig_tax[,c(1,8,9)]
+data <- as.data.frame(st)
 
-data_sig <- cbind(corressig,st)
-
-data <- cbind(corressig,st)
-data <- as.data.frame(data)
+#Select only annotated metabolites for comparison
 data$Annotation <- paste(data$Compound_Name,data$cmp)
 data <- data[data$Annotation != "NA NA",]
 krusk_data <- data
@@ -245,6 +247,7 @@ for (i in 1:length(rownames(data))){
 #pdf("Boxplot_of_significant_compounds_w_sig_notification.pdf")
 plot_list[5]
 #dev.off()
+
 ```
 
 ![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/Acetyl_Ornithine_boxplot.png)
