@@ -144,7 +144,7 @@ This really visualise the sparsity of the dataset. Simply a lot of metabolites, 
 par(mar = c(10, 4, 4, 2) + 0.1) # make more room on bottom margin
 barplot(sort(taxa_sums(physeq.norm), TRUE)[1:740]/nsamples(physeq.norm), las=2, col = "#1B9E77")
 ```
-![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/cumulative_plot.pdf)
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/cumulative_plot.png)
 
 ### Metabolites Ordination
 I use PCoA to ordinate variantion of metabolites across all metabolites, amino acids, terpenoids, bile acids.
@@ -191,11 +191,8 @@ cowplot::plot_grid(p_ALL,
                               'Bile acids, alcohols and derivatives'), ncol = 2)
 #dev.off()
 ```
-Clean up - some peepz just hate the mess...
-```{r}
-rm("Myco_x_meta_Class","md_ord", 
-   "MetDNA", "tax","physeq.norm", "p_Bile", "p_FA","p_AA","p_terp","p2")
-```
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/jaccard_ordination_metabolites_x_mycoplasma_classes.png)
+
 ###    Differential intensity of metabolites across samples         
 We use metabodiff to analyse the dataset, since it is includes knn imputation and SVN normalisation (Mock et al. 2015). 
 See also: https://github.com/andreasmock/MetaboDiff. 
@@ -210,7 +207,7 @@ quality_plot(met,
 met = diff_test(met,
                 group_factors = c("Feed"))             
 ```
-![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin//QC_plot_metabodiff.pdf)
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin//QC_plot_metabodiff.png)
 
 Despite that Metabodiff can du volcano plots, i like to use EnhacedVolcano Libs, which i find really cool :) 
 ```{r plot differential test, using Enhanced volcano}
@@ -248,4 +245,69 @@ dev.off()
 #write.csv(df,file = "Diff_test_Metabodiff.csv")
 #write.csv(df_sig,file = "Sig_Diff_test_Metabodiff.csv")
 ```
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/Differential%20Abundance%20of%20metabolites%20MetaboDiff.png)
 
+
+### Heatmap and Hierichal clustering of metabolites across samples
+
+```{r}
+#column based normalisation prior comparison
+hm.ft <- met@ExperimentList@listData[["norm"]]@assays@data@listData[[1]] # We use non imputated normalised data for heatmap
+hm.md <- md #[md$Keep == "Yes",]
+hm.md$Mycoplasma <- as.numeric(hm.md$Mycoplasma)
+
+hm.ft <- as.data.frame(hm.ft)
+# Select only significant different metabolites
+df_sig <- df[df$pval<0.001,]
+CTRL_sig <- df_sig[df_sig$fold_change < 0,]
+
+names <- as.numeric(df_sig$ID)
+hm.ft <- hm.ft[match(names,rownames(hm.ft)),]
+
+
+# Make mean and SD for visualising heatmap
+scaled.dat <- scale(t(hm.ft))
+scaled.dat <- t(scaled.dat)
+hm.ft <- scaled.dat
+# configure data to log10, add 1 to remove zero intensity, which will conflict log10
+
+# Get annotation for heatmap
+hm.Annotation <- Annotation[match(rownames(hm.ft), Annotation$ID),]
+
+### Plotting
+#Clustering of PAMs
+set.seed(2)
+pa_r = pam(hm.ft, k = 6)
+pa_c = pam(t(hm.ft), k = 2)
+
+# Define some graphics to display the distribution of columns
+.density = anno_density(hm.ft, type = "line", gp = gpar(col = "black", fill = "thistle" ))
+col = list(Feed = c("Control" = "#e3aa74", "Probiotics" = "#ed828c", "Synbiotics" = "#7bb6bd"),
+           PAM = c("1" = "#3889A0","2" = "#F2AD00","3" = "#f5452a","4" = "#D95F02", "5" = "#1B9E77" ,"6" = "#046C9A" ,"7" = "#0B775E" ,"8" = "#35274A" ,"9" = "#F2300F" ,"10" = "#666666"),
+           Mycoplasma = circlize::colorRamp2(c(0, 1), c("white", "#1B9E77")))
+# Annotate side graphs in heatmap
+ha <- HeatmapAnnotation(
+  Feed = hm.md$Feed, 
+  Mycoplasma = hm.md$Mycoplasma,
+  density = .density,height = unit(2, "cm"),
+  col = col
+)
+ha_mix_right = HeatmapAnnotation(PAM = pa_r$clustering, which = "row", width = unit(1.5, "cm"),
+                                 col = col)
+
+#pdf("Metabolite_heatmap.pdf", width = 15, height = 10)
+Heatmap(hm.ft, name = paste("VSN Metabolite","SD of Intensity", sep = "\n"), col <- c("#082ca3","#f6ffed","#ad1515"),
+        top_annotation = ha,
+        split = paste0("pam", pa_r$clustering),
+        column_split = paste0("", pa_c$clustering), 
+        row_labels = c(ifelse(hm.Annotation$CF_class != "no matches", hm.Annotation$CF_class, "")),
+        column_labels = hm.md$Individuals,
+        row_dend_side = "right",
+        row_names_side = c("left"),
+        width = 1) + ha_mix_right
+
+#dev.off()
+```
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/Metabolite_heatmap.png)
+
+Good Luck :) 
