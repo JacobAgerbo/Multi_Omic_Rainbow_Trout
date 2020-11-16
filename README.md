@@ -56,3 +56,34 @@ The subsequent workflow is outlined at http://merenlab.org/2016/06/22/anvio-tuto
 * anvi'o profiled each BAM file to estimate the coverage and detection statistics of each scaffold, and combined mapping profiles into a merged profile database for each metagenomic set. Contigs were binned automatically, using CONCOCT, by constraining the number of clusters per metagenomic set to 10.
 * Bin and MAGs where curated, following guideline from Veronika Kivenson: http://merenlab.org/2017/05/11/anvi-refine-by-veronika/
 * Functional infeering were carried using KEGG and RAST annotations
+
+## Metabolomic Analysis
+
+_The metabolomics datasets generated and analysed during the current study is available in the MSV000084364 repository, ftp://massive.ucsd.edu/MSV000084364/.
+
+Data for redoing statistical analysis can be found in metabolomics data folder._
+
+### Statistical Analysis
+Pipeline is briefly described below:
+
+* Removal of false positives and minimise zero inflation of dataset
+* Cumulative fractional abundance of each metabolite were assesed
+* PCoA Ordination of metabolite composition across feeding types
+* Differential Intensity test of Metabolites across feeding types
+* Clustering and composition analysis of differential abundant metabolites across feeding types and _Mycoplasma_
+
+### Network Analysis to improve metabolite annotation
+
+Pipeline is briefly described below, please refer to main text for GNPS details.
+
+A molecular network was created using the online workflow https://ccms-ucsd.github.io/GNPSDocumentation on the GNPS website http://gnps.ucsd.edu.
+
+In order to enhance identification of unknown metabolites, unsupervised substructures were discovered by combining MS2LDA based on MS2 spectre of all samples(van der Hooft et al., 2016), in silico structures of MS2 spectre annotated using Network Annotation Propagation (NAP)(da Silva et al., 2018).
+
+Peptidic natural products (PNPs) were identified, using DEREPLICATOR(Mohimani et al., 2017) with VARQUEST. 
+
+Subsequently, chemical classifications were assessed, using ClassyFire(Djoumbou Feunang et al., 2016). 
+
+All structural annotations from GNPS were combined, using MolNetEnhancer(Ernst et al., 2019). 
+
+Further annotation of metabolites was carried out, using MetDNA(Shen et al., 2019). Networks were visualised using Cytoscape/v3.8.0. 
