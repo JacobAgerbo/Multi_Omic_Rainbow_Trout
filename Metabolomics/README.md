@@ -310,4 +310,154 @@ Heatmap(hm.ft, name = paste("VSN Metabolite","SD of Intensity", sep = "\n"), col
 ```
 ![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Metabolomics/data/bin/Metabolite_heatmap.png)
 
+### Correlation Analysis between metabolite intensity, relative abundance of _Mycoplasma_, and host weight
+
+
+Calculate Pearson correlation as plotted, between metabolites and weight for each feed group & calculate Pearson correlation as plotted, between metabolites and Mycoplasma for each feed group
+```{r Pearson correlation of metabolite intensity and mycoplasma and weight, include=FALSE}
+stat_list = list()
+for (i in 1:length(colnames(ftt_selected))){
+selid <- colnames(ftt_selected)[i]
+lm_data <- test[,c(selid,"Weight","Feed")]
+lm_stat.test_CTRL <- lm_data[lm_data$Feed == "Control",]
+lm_stat.test_PRO <- lm_data[lm_data$Feed == "Probiotics",]
+lm_stat.test_SYN <- lm_data[lm_data$Feed == "Synbiotics",]
+CTRL <- cor.test(lm_stat.test_CTRL$Weight, lm_stat.test_CTRL[,selid], 
+                    method = "pearson")
+CTRL.p.value <- CTRL$p.value
+CTRL.cor <- CTRL$estimate
+PRO <- cor.test(lm_stat.test_PRO$Weight, lm_stat.test_PRO[,selid], 
+                    method = "pearson")
+PRO.p.value <- PRO$p.value
+PRO.cor <- PRO$estimate
+SYN <- cor.test(lm_stat.test_SYN$Weight, lm_stat.test_SYN[,selid], 
+                    method = "pearson")
+SYN.p.value <- SYN$p.value
+SYN.cor <- SYN$estimate
+stat <- cbind(selid,CTRL.p.value,CTRL.cor,PRO.p.value,PRO.cor,SYN.p.value,SYN.cor)
+stat_list[[i]] = stat
+}
+stat_list  <-  as.data.frame(matrix(unlist(stat_list), nrow=length(unlist(stat_list[1]))))
+stat_list.Weight <- t(stat_list)
+colnames(stat_list.Weight) <- c("ID","CTRL.p.value.Weight","CTRL.cor.Weight","PRO.p.value.Weight","PRO.cor.Weight","SYN.p.value.Weight","SYN.cor.Weight")
+
+####
+stat_list = list()
+for (i in 1:length(colnames(ftt_selected))){
+selid <- colnames(ftt_selected)[i]
+lm_data <- test[,c(selid,"Mycoplasma","Feed")]
+lm_stat.test_CTRL <- lm_data[lm_data$Feed == "Control",]
+lm_stat.test_PRO <- lm_data[lm_data$Feed == "Probiotics",]
+lm_stat.test_SYN <- lm_data[lm_data$Feed == "Synbiotics",]
+CTRL <- cor.test(lm_stat.test_CTRL$Mycoplasma, lm_stat.test_CTRL[,selid], 
+                    method = "pearson")
+CTRL.p.value <- CTRL$p.value
+CTRL.cor <- CTRL$estimate
+PRO <- cor.test(lm_stat.test_PRO$Mycoplasma, lm_stat.test_PRO[,selid], 
+                    method = "pearson")
+PRO.p.value <- PRO$p.value
+PRO.cor <- PRO$estimate
+SYN <- cor.test(lm_stat.test_SYN$Mycoplasma, lm_stat.test_SYN[,selid], 
+                    method = "pearson")
+SYN.p.value <- SYN$p.value
+SYN.cor <- SYN$estimate
+stat <- cbind(selid,CTRL.p.value,CTRL.cor,PRO.p.value,PRO.cor,SYN.p.value,SYN.cor)
+stat_list[[i]] = stat
+}
+stat_list  <-  as.data.frame(matrix(unlist(stat_list), nrow=length(unlist(stat_list[1]))))
+stat_list.myco <- t(stat_list)
+colnames(stat_list.myco) <- c("ID","CTRL.p.value.Myco","CTRL.cor.Myco","PRO.p.value.Myco","PRO.cor.Myco","SYN.p.value.Myco","SYN.cor.Myco")
+
+stat_list <- cbind(stat_list.Weight,stat_list.myco)
+stat_list <- as.data.frame(stat_list)
+stat_list$ID <- gsub("X ", "", as.character(stat_list$ID))
+stat_list <- stat_list[,-c(8)]
+data <- stat_list[match(stat_list$ID,df_sig$ID),]
+data <- cbind(df_sig,stat_list)
+data <- data[,-c(13)]
+```
+
+Write out statistics from Metabodiif between feed addtives or not, further also Pearson correlations between significant different abundant metabolites and Host weight and mycoplasma presence.
+```{r, include=FALSE}
+# Remove hashtag below to write out output
+write.csv(data, "Metabolite_statistics.csv")
+```
+
+```{r Look into PAMs and correlate with Gain of weight for each group}
+#r Create scatterplots with correlations within each group, include=FALSE
+
+ft <- met@ExperimentList@listData[["norm"]]@assays@data@listData[[1]]
+
+ft_selected <- ft[match(df_sig$Metabolites,rownames(ft)),]
+rownames(ft_selected) <- as.character(rownames(ft_selected))
+
+ftt_selected <- t(ft_selected)
+colnames(ftt_selected) <- paste("X",colnames(ftt_selected), sep = "") #Add X to metabolite names, since its and integer name
+md$Weight <- as.numeric(md$Weigth)
+md$Mycoplasma <- as.numeric(md$Mycoplasma)
+test <- cbind(ftt_selected,md)
+
+plot_list_weigth = list()
+plot_list_myco = list()
+# Scatter plot colored by groups
+for (i in 1:length(colnames(ftt_selected))){
+selid <- colnames(ftt_selected)[i]
+title  <- as.data.frame(df_sig[df_sig$Metabolites == rownames(ft_selected)[i],])
+sp <- ggscatter(test, x = selid, y = "Weight",
+                title = title$CF_Dparent ,
+                size = 3, alpha = 0.6, add = "reg.line", conf.int = TRUE) +
+  border() +
+  stat_cor(method = "pearson")
+sp
+xplot <- ggdensity(test, selid, fill = "Feed",
+                   palette = group_pal)
+yplot <- ggdensity(test, "Weight", fill = "Feed", 
+                   palette = group_pal)+ rotate()
+# Cleaning the plots
+sp <- sp +  theme(legend.position="bottom")
+yplot <- yplot + clean_theme() + rremove("legend")
+xplot <- xplot + clean_theme() + rremove("legend")
+# Arranging the plot using cowplot
+p = plot_grid(xplot, NULL, sp, yplot, ncol = 2, align = "hv", 
+          rel_widths = c(2, 1), rel_heights = c(1, 2))
+plot_list_weigth[[i]] = p
+}
+
+# Scatter plot colored by groups
+for (i in 1:length(colnames(ftt_selected))){
+selid <- colnames(ftt_selected)[i]
+title  <- as.data.frame(df_sig[df_sig$Metabolites == rownames(ft_selected)[i],])
+sp <- ggscatter(test, x = selid, y = "Mycoplasma",
+                title = title$CF_Dparent ,
+                size = 3, alpha = 0.6, add = "reg.line", conf.int = TRUE) +
+  border() +
+  stat_cor(method = "pearson")
+sp
+xplot <- ggdensity(test, selid, fill = "Feed",
+                   palette = group_pal)
+yplot <- ggdensity(test, "Mycoplasma", fill = "Feed", 
+                   palette = group_pal)+ rotate()
+# Cleaning the plots
+sp <- sp +  theme(legend.position="bottom")
+yplot <- yplot + clean_theme() + rremove("legend")
+xplot <- xplot + clean_theme() + rremove("legend")
+# Arranging the plot using cowplot
+p = plot_grid(xplot, NULL, sp, yplot, ncol = 2, align = "hv", 
+          rel_widths = c(2, 1), rel_heights = c(1, 2))
+plot_list_myco[[i]] = p
+}
+
+```
+
+```{r - plot scatter plots}
+# Remove hashtag below to write out output
+#pdf("Ungrouped_Sig_Metabolites_and_weight.pdf")
+plot_list_weigth
+#dev.off()
+#pdf("Ungrouped_Sig_Metabolites_and_Mycoplasma.pdf")
+plot_list_myco
+#dev.off()
+```
+
+
 Good Luck :) 
