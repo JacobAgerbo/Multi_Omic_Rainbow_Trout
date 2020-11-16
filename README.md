@@ -20,16 +20,16 @@ Pipeline is briefly described below:
 ## Genome resolve metagenomics
 Metagenomic pipeline were performed each individual of feeding type inclduing: 
 
-Feed| n |Seq Chemistry | Gut Section|
---- | --- | --- | ---
-__Control Feed__|2 |  PE150 | Mid Gut |
-__Control Feed__|2 |  PE150 | Distal Gut |
-__Probiotic Feed__|2 |  PE150 | Mid Gut |
-__Probiotic Feed__|2 |  PE150 | Distal Gut |
-__Synbiotic Feed__|2 |  PE150 | Mid Gut |
-__Synbiotic Feed__|2 |  PE150 | Distal Gut |
+Feed| n |Seq Chemistry | Gut Section|ENA Archive|
+--- | --- | --- | ---|---
+__Control Feed__|2 |  PE150 | Mid Gut |PRJEB40990
+__Control Feed__|2 |  PE150 | Distal Gut |PRJEB40990
+__Probiotic Feed__|2 |  PE150 | Mid Gut |PRJEBXXXX
+__Probiotic Feed__|2 |  PE150 | Distal Gut |PRJEB40990 & PRJEBXXXX
+__Synbiotic Feed__|2 |  PE150 | Mid Gut |PRJEBXXXX
+__Synbiotic Feed__|2 |  PE150 | Distal Gut |PRJEBXXXX
 
-Host filtered metagenomic sequences can be found on ENA archive __XXX__.
+Host filtered metagenomic sequences can be found on respective ENA archives.
 
 ### Genome resolve metagenomics preprocessing
 
