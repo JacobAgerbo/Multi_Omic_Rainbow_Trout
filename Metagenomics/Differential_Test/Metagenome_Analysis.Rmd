@@ -1,0 +1,391 @@
+---
+title: "Metagenomic_Analysis"
+author: "Jacob Agerbo Rasmussen"
+date: "7/28/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r setup, include=FALSE}
+library(knitr); packageVersion("knitr")
+library(vegan); packageVersion("vegan")
+library(dplyr); packageVersion("dplyr")
+library(stringr); packageVersion("stringr")
+library(boral);packageVersion("boral")
+#library(ggboral);packageVersion("ggboral")
+library(cowplot); packageVersion("cowplot")
+library(WGCNA); packageVersion("WGCNA")
+library(cluster); packageVersion("cluster")
+library(corrplot); packageVersion("corrplot")
+library(psych); packageVersion("psych")
+library(readxl)
+library(reshape2)
+```
+
+```{r data load}
+data <- read.csv("Merged_Functions.csv", row.names = 1)
+description <- read.csv("COG_Description.csv")
+metadata <- read.csv("metadata.csv")
+# Subset coverage data in a new data.frame and set rownames according to key index
+cov.data <- data[,2:13]
+rownames(cov.data) <- data$key
+
+# Subset functions of genecalls from COGs, KEGG, and Pfam
+Functions <- data[,c("key","COG_CATEGORY","COG_FUNCTION","KEGG","Pfam")]
+Functions$COG_CAT <- data$COG_CATEGORY
+
+# Create "human readable" categories for COG from http://clovr.org/docs/clusters-of-orthologous-groups-cogs/ & https://img.jgi.doe.gov/docs/COG.pdf
+Functions$COG_CAT <- str_replace_all(Functions$COG_CAT,
+                                     c("D"="Cell cycle control, cell division, chromosome partitioning",
+                                       "M"="Cell wall/membrane/envelope biogenesis",
+                                       "N"="Cell motility",
+                                       "O"="Post-translational modification, protein turnover, and chaperones",
+                                       "T"="Signal transduction mechanisms",
+                                       "U"="Intracellular trafficking, secretion, and vesicular transport",
+                                       "V"="Defense mechanisms",
+                                       "W"="Extracellular structures",
+                                       "Y"="Nuclear structure",
+                                       "Z"="Cytoskeleton",
+                                       "A"="RNA processing and modification",
+                                       "B"="Chromatin structure and dynamics",
+                                       "J"="Translation, ribosomal structure and biogenesis",
+                                       "K"="Transcription",
+                                       "L"="Replication, recombination and repair",
+                                       "C"="Energy production and conversion",
+                                       "E"="Amino acid transport and metabolism",
+                                       "F"="Nucleotide transport and metabolism",
+                                       "G"="Carbohydrate transport and metabolism",
+                                       "H"="Coenzyme transport and metabolism",
+                                       "I"="Lipid transport and metabolism",
+                                       "P"="Inorganic ion transport and metabolism",
+                                       "Q"="Secondary metabolites biosynthesis, transport, and catabolism",
+                                       "R"="General function prediction only",
+                                       "S"="Function unknown",
+                                       "X"="Mobilome: prophages, transposons"))
+```
+
+This rarefacation curve will look wierd (like one line), because of huge sample size, but very species richness
+```{r Rarefaction}
+d <- as.integer(as.matrix(t(cov.data)))
+rarecurve(d, step=50, cex=10)
+```
+
+```{r GLM based diff test, using DEseq2}
+library(DESeq2)
+library(phyloseq)
+# Create Phyloseq object
+md <- metadata
+row.names(md) <- metadata$Sample
+tax <- as.matrix(Functions)
+d <- phyloseq(otu_table(cov.data,taxa_are_rows=TRUE),
+               tax_table(tax),
+               sample_data(md))
+# Create DEseq object
+ds2 <- phyloseq_to_deseq2(d, ~ Feed)
+# Run DESeq2 analysis (all taxa at once!)
+dds <- DESeq(ds2)
+
+# Investigate results
+deseq.results <- as.data.frame(results(dds))
+deseq.results$taxon <- rownames(results(dds))
+
+Functions <- Functions[-1,]
+
+resultsNames(dds)
+
+deseq.results$Functional_Category <- Functions$COG_CAT[match(deseq.results$taxon,Functions$key)]
+deseq.results$COG <- Functions$COG_FUNCTION[match(deseq.results$taxon,Functions$key)]
+deseq.results$KEGG <- Functions$KEGG[match(deseq.results$taxon,Functions$key)]
+deseq.results$Pfam <- Functions$Pfam[match(deseq.results$taxon,Functions$key)]
+# Sort (arrange) by pvalue and effect size
+deseq.results <- deseq.results %>%
+                   arrange(pvalue, log2FoldChange, Functional_Category)
+
+# Print the result table
+# Let us only show significant hits
+kable(deseq.results %>%
+               filter(padj < 0.01),
+         digits = 2)
+
+sig <- deseq.results %>%
+               filter(padj < 0.01)
+```
+```{r plot differential test}
+library(EnhancedVolcano)
+p1 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('OTC, argF, argI; ornithine carbamoyltransferase [EC:2.1.3.3]'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p2 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('arcA; arginine deiminase [EC:3.5.3.6]'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p3 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('argD; acetylornithine/N-succinyldiaminopimelate aminotransferase [EC:2.6.1.11 2.6.1.17]'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p4 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('arcC; carbamate kinase [EC:2.7.2.2]'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p5 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('argH, ASL; argininosuccinate lyase [EC:4.3.2.1]'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p6 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('celB, chbC; cellobiose PTS system EIIC component'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p7 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('celC, chbA; cellobiose PTS system EIIA component [EC:2.7.1.196 2.7.1.205]'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p8 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('pepP; Xaa-Pro aminopeptidase [EC:3.4.11.9]'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p9 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('glk; glucokinase [EC:2.7.1.2]'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p10 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('gcpE, ispG; (E)-4-hydroxy-3-methylbut-2-enyl-diphosphate synthase [EC:1.17.7.1 1.17.7.3]'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p11 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('fruA; fructose PTS system EIIBC or EIIC component [EC:2.7.1.202]'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+p12 = EnhancedVolcano(deseq.results,
+    lab = deseq.results$KEGG,
+    x = 'log2FoldChange',
+    y = 'padj',
+    selectLab = c('ptsH; phosphocarrier protein HPr'),
+    pCutoff = 10e-2,
+    labSize = 3,
+    title = 'Differential Abundance of genes related to feed',
+    legendPosition = 'bottom',
+    xlim = c(-30,30))
+
+
+plot_grid(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12, ncol = 2)
+```
+
+```{r}
+goi.data <- read_excel("Genes of interest.xlsx")
+goi <- data[match(goi.data$Gene,data$KEGG),]
+row.names(goi) <- goi$key
+goi <- goi[,2:13]
+
+goi$Gene <- goi.data$Gene
+goi$Pathway <- goi.data$Relevance
+
+### fml
+for (a in 1){
+  goi_1 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 2){
+  goi_2 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 3){
+  goi_3 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 4){
+  goi_4 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 5){
+  goi_5 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 6){
+  goi_6 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 7){
+  goi_7 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 8){
+  goi_8 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 9){
+  goi_9 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 10){
+  goi_10 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 11){
+  goi_11 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 12){
+  goi_12 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 13){
+  goi_13 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 14){
+  goi_14 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 15){
+  goi_15 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 16){
+  goi_16 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 17){
+  goi_17 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 18){
+  goi_18 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 19){
+  goi_19 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 20){
+  goi_20 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 21){
+  goi_21 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 22){
+  goi_22 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 23){
+  goi_23 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 24){
+  goi_24 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 25){
+  goi_25 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 26){
+  goi_26 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 27){
+  goi_27 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 28){
+  goi_28 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 29){
+  goi_29 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 30){
+  goi_30 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 31){
+  goi_31 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+for (a in 32){
+  goi_32 <- subset(data, data$KEGG == goi.data$Gene[a])
+}
+
+fucku <- rbind(goi_1,goi_2,goi_3,goi_4,goi_5,
+               goi_6,goi_7,goi_8,goi_9,goi_10,
+               goi_11,goi_12,goi_13,goi_14,goi_15,
+               goi_16,goi_17,goi_18,goi_19,goi_20,
+               goi_21,goi_22,goi_23,goi_24,goi_25,
+               goi_26,goi_27,goi_28,goi_29,goi_30,
+               goi_31,goi_32)
+
+## Clean this shit up
+rm(goi_1,goi_2,goi_3,goi_4,goi_5,
+               goi_6,goi_7,goi_8,goi_9,goi_10,
+               goi_11,goi_12,goi_13,goi_14,goi_15,
+               goi_16,goi_17,goi_18,goi_19,goi_20,
+               goi_21,goi_22,goi_23,goi_24,goi_25,
+               goi_26,goi_27,goi_28,goi_29,goi_30,
+               goi_31,goi_32)
+
+### 
+row.names(fucku) <- fucku$key
+goi <- fucku[,c(2:13,24)]
+
+Paths <- goi.data[sort(match(goi$KEGG,goi.data$Gene)),]
+goi$Path <- Paths$Relevance
+```
+
+
+```{r Make heatmap}
+
+test <- goi[goi[,1] > 30,]
+data <- melt(test)
+
+data$value <- data$value+1
+data$log2 <- log2(data$value)
+
+ggplot(data = data, aes(variable,factor(KEGG, levels = unique(KEGG)), fill = log2))+
+ geom_tile(color = "white")+
+ scale_fill_gradient2(low = "white", high = "#3A3E94", mid = "#3a7e99", 
+   midpoint = 12, limit = c(0,15), space = "Lab", 
+   name="Log2\nCoverage") +
+  theme_minimal()+ 
+ theme(axis.text.x = element_text(angle = 45, vjust = 1, 
+    size = 12, hjust = 1))+ coord_fixed()
+
+
+```
