@@ -1,0 +1,13 @@
+﻿Sample,GutSection,Feed,Test
+CTRL_D01,Distal,Control,Control
+CTRL_D02,Distal,Control,Control
+CTRL_M01,Mid,Control,Control
+CTRL_M02,Mid,Control,Control
+PRO_D01,Distal,Probiotics,Not Control
+PRO_D02,Distal,Probiotics,Not Control
+PRO_M01,Mid,Probiotics,Not Control
+PRO_M02,Mid,Probiotics,Not Control
+SYN_D01,Distal,Synbiotics,Not Control
+SYN_D02,Distal,Synbiotics,Not Control
+SYN_M01,Mid,Synbiotics,Not Control
+SYN_M02,Mid,Synbiotics,Not Control
