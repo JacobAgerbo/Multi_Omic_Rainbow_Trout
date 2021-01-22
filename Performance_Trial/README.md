@@ -273,3 +273,5 @@ radar.plot + legend(x=-2.2, y=.4, legend = name, bty = "n", pch=20 , col=colors_
 #dev.off()
 ```
 ![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Performance_Trial/data/bin/Radar_Feed_performance.png)
+
+Where orange is Control, red is probiotics, blue is synbiotics.
