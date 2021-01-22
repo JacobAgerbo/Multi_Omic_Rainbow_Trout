@@ -113,6 +113,9 @@ plot_grid(p1,p2, labels = 'AUTO', nrow = 2)
 ```
 ![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/16S/data/bin/16S_PCoA.png)
 
+We do see a clear differential clustering of feeding types, clearly indicating different ASV compositions in the gut environment across feeding types. 
+Surprisingly we didn't see solid differences between gut sections, which we hypothesise is a result of young age. 
+
 ## Differential abundance of bacteria
 
 We do a differential abundance test between feeding types and include their taxonomic relation. We use metacoder to get a higher resolution of taxonomy, sinec the phylogenetic tree is more informative than actual barplots.
@@ -152,29 +155,28 @@ metacoder.plot
 
 ![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/16S/data/bin/16S_Metacoder.png)
 
+Here we see that especially _Mycoplasma_ are significant more abundant in Control compared to both probiotics and synbiotics. 
 
+## Supplementary
 
-
-###### Supplementary
-
+Richness analysis of gut microbiome, using Chao1, Shannon, and Hill.
+We ultimately used Hill numbers to differentiate between rare and common ASVs (core ASVs) in the gut environment across differential fed rainbow trouts.
+```
 group_pal <- c("#e3aa74", "#ed828c", "#7bb6bd")
 rich_samples <- subset_samples(physeq, Sample_Type=="Sample")
 rich_samples <- prune_taxa(taxa_sums(rich_samples) > 0, rich_samples)
-
 plot_richness(rich_samples, x="Feed_Type", measures=c("Chao1", "Shannon"))
 
 hill_data <- rich_samples@otu_table@.Data
 hill_data <- as.matrix(hill_data)
-
 hill_0 <- hill_div(rich_samples@otu_table,0)
 hill_1 <- hill_div(rich_samples@otu_table,1)
 hill_2 <- hill_div(rich_samples@otu_table,2)
 
+
 summary(hill_0)
 mean(hill_0)
 sd(hill_0)
-
-
 hierarchy <- md[md$Sample_Type=="Sample",]
 hierarchy <- hierarchy[,c(1,6)]
 
@@ -217,5 +219,7 @@ plot = plot + xlab("Feeding Type") + #changing labels
 
 
 cowplot::plot_grid(div_profiles,plot, labels = 'AUTO')
-
+```
 ![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/16S/data/bin/Diversity_analysis.jpg)
+
+Here we see that control feed have a lower Hill diversity compared to both probiotics and synbiotics. 
