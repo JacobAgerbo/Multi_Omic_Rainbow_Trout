@@ -202,6 +202,7 @@ stats <- rbind(wgg.stats,fcr.stats,fer.stats,ler.stats,per.stats)
 plot_grid(WGG,FER, LER, PER)
 #dev.off()
 ```
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Performance_Trial/data/bin/Performance_Boxplots.png)
 
 Correlation between aquacultural abilities, like Feed conveersion ratio, growth, protein efficiency ratio, and lipid efficiency ratio
 ```
@@ -241,6 +242,7 @@ FER_LER <- ggscatter(corr_data, x = "LER", y = "FER",
 plot_grid(WGG_PER, FER_PER, WGG_LER,FER_LER, labels = "AUTO", nrow = 2)
 #dev.off()
 ```
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Performance_Trial/data/bin/Performance_Correlations.png)
 
 Create a radar plot to sum up data
 ```
@@ -270,3 +272,4 @@ radar.plot <- radarchart( RADAR  , axistype=2 ,
 radar.plot + legend(x=-2.2, y=.4, legend = name, bty = "n", pch=20 , col=colors_border , text.col = "black", cex=1.2, pt.cex=3)# Add a legend
 #dev.off()
 ```
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/Performance_Trial/data/bin/Radar_Feed_performance.png)
