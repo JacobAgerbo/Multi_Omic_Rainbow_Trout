@@ -151,3 +151,71 @@ metacoder.plot
 ```
 
 ![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/16S/data/bin/16S_Metacoder.png)
+
+
+
+
+###### Supplementary
+
+group_pal <- c("#e3aa74", "#ed828c", "#7bb6bd")
+rich_samples <- subset_samples(physeq, Sample_Type=="Sample")
+rich_samples <- prune_taxa(taxa_sums(rich_samples) > 0, rich_samples)
+
+plot_richness(rich_samples, x="Feed_Type", measures=c("Chao1", "Shannon"))
+
+hill_data <- rich_samples@otu_table@.Data
+hill_data <- as.matrix(hill_data)
+
+hill_0 <- hill_div(rich_samples@otu_table,0)
+hill_1 <- hill_div(rich_samples@otu_table,1)
+hill_2 <- hill_div(rich_samples@otu_table,2)
+
+summary(hill_0)
+mean(hill_0)
+sd(hill_0)
+
+
+hierarchy <- md[md$Sample_Type=="Sample",]
+hierarchy <- hierarchy[,c(1,6)]
+
+div_profile(hill_data)
+div <- div_profile(hill_data, hierarchy=hierarchy, level="alpha")
+
+div_profiles <- div_profile_plot(div, colour = group_pal)
+
+#With post-hoc analyses
+divtest <- div_test(hill_data,qvalue=2,hierarchy=hierarchy,posthoc=TRUE)
+divtestdata <- divtest$data
+divtestdata$Feed <- as.factor(divtestdata$Group)
+divtestdata$Feed <- factor(divtestdata$Feed, levels = as.character(unique(divtestdata$Feed)))
+
+stat.test <- divtestdata %>%
+  group_by("Feed") %>%
+  tukey_hsd(Value ~ Feed) %>%
+  adjust_pvalue(method = "fdr") %>%
+  add_significance("p.adj")
+
+stat.test <- stat.test %>%
+  add_x_position(x = "Feed", dodge = 0.8) %>%
+  add_y_position()
+
+    # Create a box plot
+plot = ggboxplot(
+      divtestdata, x = "Feed", y = "Value", 
+      color = "black",
+      fill = "Feed", palette = group_pal,
+      outlier.shape = 8, order = c("Control", "Probiotics", "Synbiotics"),
+      size = 0.5,
+      title = "")  + 
+      stat_pvalue_manual(
+        stat.test,  label = "{p.adj.signif}", tip.length = 0.045,
+        step.increase = 0.09,
+        position = "identity", 
+        y.position = 12) 
+plot = plot + xlab("Feeding Type") + #changing labels
+  ylab("Effective number of ASVs")
+
+
+cowplot::plot_grid(div_profiles,plot, labels = 'AUTO')
+
+![alt text](https://github.com/JacobAgerbo/Multi_Omic_Rainbow_Trout/blob/main/16S/data/bin/Diversity_analysis.jpg)
